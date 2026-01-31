@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PickupItem : Interactable
 {
+    [Header("Settings")]
+    [Tooltip("Unique ID for saving state across scenes")]
+    [SerializeField] private string objectID = "Pickup_01";
+
     [Header("Priority")]
     [SerializeField] private int priority = 100;
     public override int Priority => priority;
@@ -21,6 +25,25 @@ public class PickupItem : Interactable
     private bool _picked = false;
     public override bool CanInteract => !_picked;
 
+    private void Start()
+    {
+        // Try to auto-find dialogue manager if not assigned
+        if (showDialogue && dialogueManager == null)
+        {
+            dialogueManager = FindObjectOfType<DialogueManager>();
+        }
+
+        if (GameStateManager.Instance != null)
+        {
+            _picked = GameStateManager.Instance.GetState(objectID);
+            if (_picked)
+            {
+                if (destroyOnPickup) Destroy(gameObject);
+                else gameObject.SetActive(false);
+            }
+        }
+    }
+
     public override void Interact(PlayerInteractor interactor)
     {
         if (_picked) return;
@@ -30,6 +53,12 @@ public class PickupItem : Interactable
         if (fragmentReward != null && PlayerMaskInventoryController.Instance != null)
         {
             PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+        }
+
+        // Save state
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.SetState(objectID, true);
         }
 
         if (showDialogue && dialogueManager != null && dialogueSequence != null

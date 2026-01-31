@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Obstacle : Interactable
 {
+    [Header("Settings")]
+    [Tooltip("Unique ID for saving state across scenes")]
+    [SerializeField] private string objectID = "Obstacle_01";
+
     [Header("Priority")]
     [SerializeField] private int priority = 1000;
     public override int Priority => priority;
@@ -18,6 +22,21 @@ public class Obstacle : Interactable
 
     public override bool CanInteract => !_used && !_moving && targetPoint != null;
 
+    private void Start()
+    {
+        if (GameStateManager.Instance != null && targetPoint != null)
+        {
+            _used = GameStateManager.Instance.GetState(objectID);
+            if (_used)
+            {
+                // Already moved, snap to target directly
+                transform.position = targetPoint.position;
+                if (triggerColliderToDisable != null)
+                    triggerColliderToDisable.enabled = false;
+            }
+        }
+    }
+
     public override void Interact(PlayerInteractor interactor)
     {
         if (!CanInteract) return;
@@ -27,6 +46,12 @@ public class Obstacle : Interactable
 
         if (triggerColliderToDisable != null)
             triggerColliderToDisable.enabled = false;
+
+        // Save state
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.SetState(objectID, true);
+        }
 
         StartCoroutine(MoveToTargetRoutine(targetPoint.position));
     }
