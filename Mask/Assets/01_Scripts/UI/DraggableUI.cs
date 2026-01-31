@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -16,8 +16,32 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [Tooltip("The attribute data for this mask fragment")]
     public MaskAttributeData attributeData;
 
+    // Optional flag if you need to know if this was spawned dynamically
+    [HideInInspector] public bool isSpawnedFromInventory = false; 
+
     private Vector2 positionBeforeDrag;
     private Transform rootCanvasTransform;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.clickCount >= 2)
+        {
+            // If we are inside a slot, tell the slot to destroy us
+            if (transform.parent != null)
+            {
+                ItemSlot slot = transform.parent.GetComponent<ItemSlot>();
+                if (slot != null && slot.currentItem == this)
+                {
+                    slot.OnItemDoubleClicked();
+                    return; // Handled by slot
+                }
+            }
+            
+            // If not in a slot (e.g. floating or just dragged out), destroy self directly
+            // This is useful if it got stuck or user just wants to cancel it
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

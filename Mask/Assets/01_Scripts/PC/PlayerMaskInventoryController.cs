@@ -66,5 +66,10 @@ public class PlayerMaskInventoryController : MonoBehaviour
         Debug.Log($"Mask State Updated: Identity={CurrentIdentity}, Emotions={string.Join(",", CurrentEmotions)}");
         OnMaskStateChanged?.Invoke();
     }
+
+    public void ForceRefreshUI()
+    {
+        OnInventoryUpdated?.Invoke();
+    }
 }
 

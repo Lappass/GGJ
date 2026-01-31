@@ -26,8 +26,43 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         if (eventData.clickCount == 2 && currentItem != null)
         {
-            EjectItem();
+            DestroyItem();
         }
+    }
+
+    // Called by DraggableUI when IT is double clicked
+    public void OnItemDoubleClicked()
+    {
+        DestroyItem();
+    }
+
+    private void DestroyItem()
+    {
+        if (currentItem != null)
+        {
+            Debug.Log($"Slot {name} destroying {currentItem.name}");
+            
+            // Logic: Destroy object -> Inventory Controller Refresh -> Icon reappears in inventory
+            Destroy(currentItem.gameObject);
+            currentItem = null;
+
+            // Notify Manager that mask content changed
+            if (MaskManager.Instance != null)
+            {
+                MaskManager.Instance.OnMaskContentChanged();
+            }
+            
+            // Trigger Inventory Refresh so the icon comes back
+            if (PlayerMaskInventoryController.Instance != null)
+            {
+                PlayerMaskInventoryController.Instance.ForceRefreshUI();
+            }
+        }
+    }
+
+    private void EjectItem()
+    {
+        DestroyItem();
     }
 
     private void PlaceItem(DraggableUI item)
@@ -63,23 +98,6 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         if (MaskManager.Instance != null)
         {
             MaskManager.Instance.OnMaskContentChanged();
-        }
-    }
-
-    private void EjectItem()
-    {
-        if (currentItem != null)
-        {
-            Debug.Log($"Slot {name} ejecting {currentItem.name}");
-            currentItem.ReturnToHome();
-            
-            currentItem = null;
-
-            // Notify Manager
-            if (MaskManager.Instance != null)
-            {
-                MaskManager.Instance.OnMaskContentChanged();
-            }
         }
     }
 
