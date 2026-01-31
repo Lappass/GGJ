@@ -22,6 +22,7 @@ public enum IdentityType
     Journalist,
     Detective,
     Therapist,
+
 }
 
 [CreateAssetMenu(fileName = "NewMaskAttribute", menuName = "Mask/Attribute Data")]
@@ -33,6 +34,10 @@ public class MaskAttributeData : ScriptableObject
     [Header("Values")]
     public EmotionType emotionValue;
     public IdentityType identityValue;
+
+    [Header("Visuals")]
+    public Sprite icon;
+    public MaskPosition defaultPosition; // Where does this fragment usually go?
 
     [TextArea]
     public string description;

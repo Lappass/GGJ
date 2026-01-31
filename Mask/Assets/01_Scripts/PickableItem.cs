@@ -5,6 +5,10 @@ public class PickableItem : MonoBehaviour
     [Header("Settings")]
     [Tooltip("唯一ID")]
     [SerializeField] private string objectID = "Item_01";
+    [Header("Reward")]
+    [Tooltip("If set, picking up this item will unlock this mask fragment PREFAB.")]
+    [SerializeField] private GameObject fragmentReward;
+
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     private bool isPlayerInRange = false;
@@ -33,6 +37,12 @@ public class PickableItem : MonoBehaviour
     {
         Debug.Log($"捡起了物品: {gameObject.name}");
         
+        // Unlock Fragment Reward
+        if (fragmentReward != null && PlayerMaskInventoryController.Instance != null)
+        {
+            PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+        }
+
         if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.SetState(objectID, true);
