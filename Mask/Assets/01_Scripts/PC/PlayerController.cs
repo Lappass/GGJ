@@ -20,7 +20,8 @@ public class PlayerController2D : MonoBehaviour
 
     private Rigidbody2D rb;
     private CapsuleCollider2D col;
-    private Animator anim;
+    [Header("Anim")]
+    [SerializeField] private Animator anim;
     private Vector2 input;
     private bool isCrouching;
     private SpriteRenderer sr;
@@ -32,7 +33,7 @@ public class PlayerController2D : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<CapsuleCollider2D>();
-        anim = GetComponent<Animator>();
+        if (anim == null) anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         standSize = col.size;
         standOffset = col.offset;
@@ -69,10 +70,8 @@ public class PlayerController2D : MonoBehaviour
         }
         if (sr != null && Mathf.Abs(input.x) > 0.01f)
             sr.flipX = input.x > 0;
-        if (anim != null)
-        {
-            anim.SetFloat("Speed", input.magnitude);
-        }
+        if (anim != null) anim.SetFloat("Speed", input.magnitude);
+
     }
 
     private void FixedUpdate()
