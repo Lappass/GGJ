@@ -56,5 +56,8 @@ TagManager:
   - name: Foward
     uniqueID: 3515077499
     locked: 0
+  - name: Mask
+    uniqueID: 2309825251
+    locked: 0
   m_RenderingLayers:
   - Default
