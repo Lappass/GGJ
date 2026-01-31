@@ -439,6 +439,7 @@ Transform:
   - {fileID: 570090111}
   - {fileID: 1651787064}
   - {fileID: 1191810085}
+  - {fileID: 1557070174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339092347
@@ -1054,7 +1055,7 @@ PrefabInstance:
       objectReference: {fileID: 1449790665}
     - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
       propertyPath: scene1Name
-      value: Intro
+      value: CrimeScene
       objectReference: {fileID: 0}
     - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
       propertyPath: scene1ImageObj
@@ -2101,6 +2102,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 288541410}
     m_Modifications:
+    - target: {fileID: 3838651628903261, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: acceptedPosition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 682948458478259535, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4247903234296051090, guid: 4feadd416f8e0dd46a561a4e5cbead66, type: 3}
     - target: {fileID: 1378856705728976320, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2185,13 +2194,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3244686500340203735, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4185301470145978256, guid: 14755dcfd2551094ab7882b2e42c4d59, type: 3}
+    - target: {fileID: 3664183575965414860, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4532157504291051293, guid: 6d4b7c545040f8c4794bdd2b8186a841, type: 3}
+    - target: {fileID: 4788006149069342426, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: acceptedPosition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408526329293500194, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: acceptedPosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6695789843980573373, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7349308980475363047, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6168354526862360588, guid: f05c985131b3cf945b78dc473f25a083, type: 3}
     - target: {fileID: 8334888299883338682, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177834553829097591, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
+      propertyPath: acceptedPosition
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2736,7 +2769,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 464497213}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 288541410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3654,7 +3687,6 @@ SceneRoots:
   - {fileID: 442743314}
   - {fileID: 1193528014}
   - {fileID: 532646949}
-  - {fileID: 1557070174}
   - {fileID: 1482901553}
   - {fileID: 631496098}
   - {fileID: 288541410}

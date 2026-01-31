@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 2105317233}
   - component: {fileID: 2105317232}
   - component: {fileID: 2105317231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,13 +766,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841bdfa1028587a499ebd7f253701b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectID: Pickup_02
   priority: 100
   destroyOnPickup: 0
-  fragmentReward: {fileID: 0}
+  fragmentReward: {fileID: 365179775200999441, guid: 87a7be9a56a392a44bcdd8753bbb7d44, type: 3}
   showDialogue: 1
   dialogueManager: {fileID: 0}
   dialogueSequence:
-    lines: []
+    lines:
+    - speaker: Me
+      content: It seems too large
 --- !u!61 &2105317232
 BoxCollider2D:
   m_ObjectHideFlags: 0

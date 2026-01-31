@@ -12,15 +12,42 @@ public class PlayerInteractor : MonoBehaviour
     [Header("Prompt UI")]
     [SerializeField] private GameObject promptRoot;
 
-    [Header("¶Ô»°Ê±½ûÓÃ½»»¥!!")]
+    [Header("ï¿½Ô»ï¿½Ê±ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½!!")]
     [SerializeField] private DialogueManager dialogueManager;
 
     private readonly List<Interactable> _inRange = new List<Interactable>();
     private Interactable _current;
 
-    private void Awake()
+    private void Start()
     {
+        // Subscribe to scene loaded event
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        // Initial find
+        FindDependencies();
+    }
+
+    private void OnDestroy()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        // Clear old interactables from previous scene
+        _inRange.Clear();
+        _current = null;
         if (promptRoot != null) promptRoot.SetActive(false);
+
+        // Find new scene dependencies
+        FindDependencies();
+    }
+
+    private void FindDependencies()
+    {
+        if (dialogueManager == null)
+        {
+            dialogueManager = FindObjectOfType<DialogueManager>();
+        }
     }
 
     private void Update()
