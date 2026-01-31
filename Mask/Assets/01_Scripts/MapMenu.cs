@@ -7,6 +7,7 @@ public class MapMenu : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private GameObject mapPanel;
+    [SerializeField] private GameObject scene1ImageObj;
     [SerializeField] private GameObject scene2ImageObj;
     [SerializeField] private GameObject scene3ImageObj;
 
