@@ -7,6 +7,9 @@ public class GameStateManager : MonoBehaviour
     //a dictionary to keep track of states
     private Dictionary<string, bool> itemStates = new Dictionary<string, bool>();
 
+    // The name of the spawn point the player should appear at in the next scene
+    public string nextSpawnPointID;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

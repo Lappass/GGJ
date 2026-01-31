@@ -13,8 +13,11 @@ public class MapMenu : MonoBehaviour
 
     [Header("Scene Settings")]
     [SerializeField] private string scene1Name = "CrimeScene";
+    [SerializeField] private string scene1SpawnPoint = "SpawnPoint";
     [SerializeField] private string scene2Name = "Interrogation Room";
+    [SerializeField] private string scene2SpawnPoint = "SpawnPoint";
     [SerializeField] private string scene3Name = "Suspect";
+    [SerializeField] private string scene3SpawnPoint = "SpawnPoint";
 
     private bool isMapOpen = false;
 
@@ -24,9 +27,9 @@ public class MapMenu : MonoBehaviour
         {
             mapPanel.SetActive(false);
         }
-        AddClickListener(scene1ImageObj, scene1Name);
-        AddClickListener(scene2ImageObj, scene2Name);
-        AddClickListener(scene3ImageObj, scene3Name);
+        AddClickListener(scene1ImageObj, scene1Name, scene1SpawnPoint);
+        AddClickListener(scene2ImageObj, scene2Name, scene2SpawnPoint);
+        AddClickListener(scene3ImageObj, scene3Name, scene3SpawnPoint);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
@@ -58,7 +61,7 @@ public class MapMenu : MonoBehaviour
             ToggleMap();
         }
     }
-    private void AddClickListener(GameObject obj, string sceneName)
+    private void AddClickListener(GameObject obj, string sceneName, string spawnPointName)
     {
         if (obj == null) return;
         EventTrigger trigger = obj.GetComponent<EventTrigger>();
@@ -67,8 +70,8 @@ public class MapMenu : MonoBehaviour
             trigger = obj.AddComponent<EventTrigger>();
         }
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerClick; // 监听点击事件
-        entry.callback.AddListener((data) => { LoadScene(sceneName); });
+        entry.eventID = EventTriggerType.PointerClick; 
+        entry.callback.AddListener((data) => { LoadScene(sceneName, spawnPointName); });
 
         trigger.triggers.Add(entry);
     }
@@ -82,7 +85,7 @@ public class MapMenu : MonoBehaviour
         }
     }
 
-    private void LoadScene(string sceneName)
+    private void LoadScene(string sceneName, string spawnPointName)
     {
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == sceneName)
@@ -92,7 +95,13 @@ public class MapMenu : MonoBehaviour
         }
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.Log($"Loading scene: {sceneName}");
+            Debug.Log($"Loading scene: {sceneName} at {spawnPointName}");
+            
+            if (GameStateManager.Instance != null)
+            {
+                GameStateManager.Instance.nextSpawnPointID = spawnPointName;
+            }
+
             if (mapPanel != null)
             {
                 mapPanel.SetActive(false);
