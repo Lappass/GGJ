@@ -3,12 +3,15 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
+    [Header("Slot Settings")]
+    [Tooltip("The position type this slot accepts. Set to None to accept everything (or handle differently).")]
+    public MaskPosition acceptedPosition = MaskPosition.None;
+
     // The item currently held by this slot
     public DraggableUI currentItem;
 
     public void OnDrop(PointerEventData eventData)
     {
-        // Check if the dropped object is a DraggableUI
         if (eventData.pointerDrag != null)
         {
             DraggableUI draggable = eventData.pointerDrag.GetComponent<DraggableUI>();
@@ -21,7 +24,6 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Double click to eject
         if (eventData.clickCount == 2 && currentItem != null)
         {
             EjectItem();
@@ -30,19 +32,25 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     private void PlaceItem(DraggableUI item)
     {
+        // Check if types match
+        if (acceptedPosition != MaskPosition.None && item.positionType != acceptedPosition)
+        {
+            Debug.Log($"Type mismatch: Slot expects {acceptedPosition}, Item is {item.positionType}");
+            // Optional: Provide visual feedback for failure?
+            // Since we don't snap it, it will just drop in place (or return home if configured)
+            return; 
+        }
+
         // If there's already an item, eject it first
         if (currentItem != null)
         {
-            if (currentItem == item) return; // Dropped on self
+            if (currentItem == item) return;
             EjectItem();
         }
 
-        // Snap the new item to this slot
         currentItem = item;
         item.transform.SetParent(transform);
-        item.transform.localPosition = Vector3.zero; // Center it
-        
-        // Ensure it's centered
+        item.transform.localPosition = Vector3.zero; 
         RectTransform itemRect = item.GetComponent<RectTransform>();
         if (itemRect != null)
         {
@@ -57,8 +65,6 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         if (currentItem != null)
         {
             Debug.Log($"Slot {name} ejecting {currentItem.name}");
-            
-            // Return to its original home/inventory
             currentItem.ReturnToHome();
             
             currentItem = null;

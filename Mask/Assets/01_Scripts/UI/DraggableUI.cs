@@ -9,6 +9,10 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public Transform parentBeforeDrag;
     public Transform homeParent;
     public bool returnToStartPosOnRelease = false;
+    
+    [Header("Item Properties")]
+    public MaskPosition positionType = MaskPosition.None;
+
     private Vector2 positionBeforeDrag;
     private Transform rootCanvasTransform;
 
