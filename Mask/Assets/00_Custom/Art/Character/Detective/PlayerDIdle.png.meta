@@ -1,0 +1,819 @@
+fileFormatVersion: 2
+guid: 20d7b5c65608b2e4c8ad75747fcf927d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4700414829118164953
+    second: PlayerDIdle_0
+  - first:
+      213: 4879256104683867596
+    second: PlayerDIdle_1
+  - first:
+      213: 3280009388154215779
+    second: PlayerDIdle_2
+  - first:
+      213: -7781735523611826261
+    second: PlayerDIdle_3
+  - first:
+      213: 126127599870374284
+    second: PlayerDIdle_4
+  - first:
+      213: -1462687240744252300
+    second: PlayerDIdle_5
+  - first:
+      213: -6212154644090231900
+    second: PlayerDIdle_6
+  - first:
+      213: 2798224259467394911
+    second: PlayerDIdle_7
+  - first:
+      213: 2440668142887948187
+    second: PlayerDIdle_8
+  - first:
+      213: -5544879531409665326
+    second: PlayerDIdle_9
+  - first:
+      213: 527168256382971815
+    second: PlayerDIdle_10
+  - first:
+      213: -3961655520545485598
+    second: PlayerDIdle_11
+  - first:
+      213: -6142821749453840838
+    second: PlayerDIdle_12
+  - first:
+      213: 2945049576828322235
+    second: PlayerDIdle_13
+  - first:
+      213: -7057292302388517913
+    second: PlayerDIdle_14
+  - first:
+      213: -4808062864358018479
+    second: PlayerDIdle_15
+  - first:
+      213: 748794057698029118
+    second: PlayerDIdle_16
+  - first:
+      213: -1453813666083730391
+    second: PlayerDIdle_17
+  - first:
+      213: 1979705329332504056
+    second: PlayerDIdle_18
+  - first:
+      213: 4605105098418070865
+    second: PlayerDIdle_19
+  - first:
+      213: -3801433324346713689
+    second: PlayerDIdle_20
+  - first:
+      213: 2379623848851234428
+    second: PlayerDIdle_21
+  - first:
+      213: 1894418290143141689
+    second: PlayerDIdle_22
+  - first:
+      213: -9176310948269135472
+    second: PlayerDIdle_23
+  - first:
+      213: -8481999454267644951
+    second: PlayerDIdle_24
+  - first:
+      213: 6421039882893700986
+    second: PlayerDIdle_25
+  - first:
+      213: -7097740236479878328
+    second: PlayerDIdle_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlayerDIdle_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 83
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9df019a126a3b3140800000000000000
+      internalID: 4700414829118164953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 83
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccd86d7639996b340800000000000000
+      internalID: 4879256104683867596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_2
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 82
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36dd0e8092fe48d20800000000000000
+      internalID: 3280009388154215779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_3
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 84
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba7241b45c8b10490800000000000000
+      internalID: -7781735523611826261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_4
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 84
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8175a2426810c100800000000000000
+      internalID: 126127599870374284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_5
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 31
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c41f544bd73bbe0800000000000000
+      internalID: -1462687240744252300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_6
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3653db34ef9c9a0800000000000000
+      internalID: -6212154644090231900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_7
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 76
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5f3f6b632a45d620800000000000000
+      internalID: 2798224259467394911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_8
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fc277aebefed120800000000000000
+      internalID: 2440668142887948187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_9
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 31
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d21ef7b171ac03b0800000000000000
+      internalID: -5544879531409665326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_10
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7afa1927cb0e05700800000000000000
+      internalID: 527168256382971815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_11
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 76
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eccb673b4f5509c0800000000000000
+      internalID: -3961655520545485598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_12
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3e92493a2050caa0800000000000000
+      internalID: -6142821749453840838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_13
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 34
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb144c09cfaeed820800000000000000
+      internalID: 2945049576828322235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_14
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e3a808ca067f0e90800000000000000
+      internalID: -7057292302388517913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_15
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 76
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15271309c44564db0800000000000000
+      internalID: -4808062864358018479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_16
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ea30b6a30446a00800000000000000
+      internalID: 748794057698029118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_17
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 0
+        width: 31
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c887f5c2403dbe0800000000000000
+      internalID: -1453813666083730391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_18
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f5cfc21283597b10800000000000000
+      internalID: 1979705329332504056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_19
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 76
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 155ac8820be98ef30800000000000000
+      internalID: 4605105098418070865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_20
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a95bf848889e3bc0800000000000000
+      internalID: -3801433324346713689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_21
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 31
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7e53d1684f160120800000000000000
+      internalID: 2379623848851234428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_22
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f1cf7d5635a4a10800000000000000
+      internalID: 1894418290143141689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_23
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 76
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 099e3eb8fc137a080800000000000000
+      internalID: -9176310948269135472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_24
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 76
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3e1579f62e94a80800000000000000
+      internalID: -8481999454267644951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_25
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 0
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7fae7cd0cd1c1950800000000000000
+      internalID: 6421039882893700986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDIdle_26
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 0
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84bae904cd2cf7d90800000000000000
+      internalID: -7097740236479878328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PlayerDIdle_0: 4700414829118164953
+      PlayerDIdle_1: 4879256104683867596
+      PlayerDIdle_10: 527168256382971815
+      PlayerDIdle_11: -3961655520545485598
+      PlayerDIdle_12: -6142821749453840838
+      PlayerDIdle_13: 2945049576828322235
+      PlayerDIdle_14: -7057292302388517913
+      PlayerDIdle_15: -4808062864358018479
+      PlayerDIdle_16: 748794057698029118
+      PlayerDIdle_17: -1453813666083730391
+      PlayerDIdle_18: 1979705329332504056
+      PlayerDIdle_19: 4605105098418070865
+      PlayerDIdle_2: 3280009388154215779
+      PlayerDIdle_20: -3801433324346713689
+      PlayerDIdle_21: 2379623848851234428
+      PlayerDIdle_22: 1894418290143141689
+      PlayerDIdle_23: -9176310948269135472
+      PlayerDIdle_24: -8481999454267644951
+      PlayerDIdle_25: 6421039882893700986
+      PlayerDIdle_26: -7097740236479878328
+      PlayerDIdle_3: -7781735523611826261
+      PlayerDIdle_4: 126127599870374284
+      PlayerDIdle_5: -1462687240744252300
+      PlayerDIdle_6: -6212154644090231900
+      PlayerDIdle_7: 2798224259467394911
+      PlayerDIdle_8: 2440668142887948187
+      PlayerDIdle_9: -5544879531409665326
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
