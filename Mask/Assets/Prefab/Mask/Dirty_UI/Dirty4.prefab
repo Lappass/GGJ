@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5104636081324450170
+--- !u!1 &3760661679761297241
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4485145596177311013}
-  - component: {fileID: 7206744383200002867}
-  - component: {fileID: 4360109068451898189}
-  - component: {fileID: 2510731403226314039}
+  - component: {fileID: 4120409910484493410}
+  - component: {fileID: 724146106052255807}
+  - component: {fileID: 2107840786947149010}
+  - component: {fileID: 7171130431288425950}
   m_Layer: 5
-  m_Name: Detective2
+  m_Name: Dirty4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4485145596177311013
+--- !u!224 &4120409910484493410
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104636081324450170}
+  m_GameObject: {fileID: 3760661679761297241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
@@ -35,24 +35,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -737, y: -144}
-  m_SizeDelta: {x: 27, y: 30}
+  m_AnchoredPosition: {x: -750, y: -10}
+  m_SizeDelta: {x: 21, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7206744383200002867
+--- !u!222 &724146106052255807
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104636081324450170}
+  m_GameObject: {fileID: 3760661679761297241}
   m_CullTransparentMesh: 1
---- !u!114 &4360109068451898189
+--- !u!114 &2107840786947149010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104636081324450170}
+  m_GameObject: {fileID: 3760661679761297241}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1277786057389921111, guid: 0a8d55c68b20f0d40b50e46a3a7f5c89, type: 3}
+  m_Sprite: {fileID: 8491409935884367198, guid: 128281bd06daa0747b3ceb0c5a89ac81, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,13 +76,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2510731403226314039
+--- !u!114 &7171130431288425950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104636081324450170}
+  m_GameObject: {fileID: 3760661679761297241}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b6c3c702e22b51459ead7d91aa09598, type: 3}
@@ -91,5 +91,5 @@ MonoBehaviour:
   parentBeforeDrag: {fileID: 0}
   homeParent: {fileID: 0}
   returnToStartPosOnRelease: 0
-  positionType: 2
-  attributeData: {fileID: 11400000, guid: eb13baf7ea40c4d46a776e87648e25a6, type: 2}
+  positionType: 0
+  attributeData: {fileID: 11400000, guid: cd0c407a9d9a53e46aea1a67c01e980e, type: 2}

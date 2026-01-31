@@ -22,6 +22,7 @@ public enum IdentityType
     Journalist,
     Detective,
     Therapist,
+    DirtyCop,
 
 }
 
