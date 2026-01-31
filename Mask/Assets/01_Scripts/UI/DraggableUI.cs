@@ -12,6 +12,9 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     
     [Header("Item Properties")]
     public MaskPosition positionType = MaskPosition.None;
+    
+    [Tooltip("The attribute data for this mask fragment")]
+    public MaskAttributeData attributeData;
 
     private Vector2 positionBeforeDrag;
     private Transform rootCanvasTransform;

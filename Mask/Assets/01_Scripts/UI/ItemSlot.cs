@@ -58,6 +58,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
 
         Debug.Log($"Slot {name} absorbed {item.name}");
+
+        // Notify Manager to update total attributes
+        if (MaskManager.Instance != null)
+        {
+            MaskManager.Instance.OnMaskContentChanged();
+        }
     }
 
     private void EjectItem()
@@ -68,12 +74,23 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             currentItem.ReturnToHome();
             
             currentItem = null;
+
+            // Notify Manager
+            if (MaskManager.Instance != null)
+            {
+                MaskManager.Instance.OnMaskContentChanged();
+            }
         }
     }
 
     public void Clear()
     {
         currentItem = null;
+        // Notify Manager
+        if (MaskManager.Instance != null)
+        {
+            MaskManager.Instance.OnMaskContentChanged();
+        }
     }
 }
 
