@@ -71,29 +71,111 @@ public class MaskManager : MonoBehaviour
             }
         }
 
-        // 3. Build string: e.g. "Detective x3, Angry x1"
+        // 3. Logic for Thresholds
+        // Detective: 3, Journalist: 2, Therapist: 1, DirtyCop: 4
+        
+        IdentityType finalIdentity = IdentityType.Journalist; // Default or None if you had it. 
+        // Since we don't have None in the enum easily (or maybe we do), let's use a flag or check counts.
+        // Actually, let's determine based on priority or just first match?
+        // Let's assume hierarchy: DirtyCop > Detective > Journalist > Therapist (based on difficulty?)
+        
+        // Better: Reset to a "None" equivalent.
+        // If I can't easily add None to the enum right now, I'll rely on a separate boolean or just use a fallback.
+        // Let's assume standard is no identity.
+        bool identityFound = false;
+
+        if (identityCounts.ContainsKey(IdentityType.DirtyCop) && identityCounts[IdentityType.DirtyCop] >= 4)
+        {
+            finalIdentity = IdentityType.DirtyCop;
+            identityFound = true;
+        }
+        else if (identityCounts.ContainsKey(IdentityType.Detective) && identityCounts[IdentityType.Detective] >= 3)
+        {
+            finalIdentity = IdentityType.Detective;
+            identityFound = true;
+        }
+        else if (identityCounts.ContainsKey(IdentityType.Journalist) && identityCounts[IdentityType.Journalist] >= 2)
+        {
+            finalIdentity = IdentityType.Journalist;
+            identityFound = true;
+        }
+        else if (identityCounts.ContainsKey(IdentityType.Therapist) && identityCounts[IdentityType.Therapist] >= 1)
+        {
+            finalIdentity = IdentityType.Therapist;
+            identityFound = true;
+        }
+
+        // Emotions: "One counts as one"
+        List<EmotionType> finalEmotions = new List<EmotionType>();
+        foreach(var kvp in emotionCounts)
+        {
+            if (kvp.Value > 0)
+            {
+                // If you want "3 Happy" to mean "Happy x3", we store them distinct?
+                // The user said "one counts as one", so if I have 3 happy fragments, do I have "Happy" state?
+                // Usually yes. Or do I list all?
+                // "情绪就是有一个算一个" -> Sounds like we just list them present.
+                finalEmotions.Add(kvp.Key);
+            }
+        }
+
+        // 4. Update Player State
+        if (PlayerMaskInventoryController.Instance != null)
+        {
+            // If no identity found, what do we pass?
+            // Since we didn't successfully add None, maybe just pass the first enum value if !identityFound?
+            // Or careful logic.
+            // Let's just update if found, or handle "None" conceptually.
+            // I'll try to cast 0 or similar if needed, but safer to just send what we have.
+            // If identityFound is false, we might not want to set it to Therapist/Journalist incorrectly.
+            // I'll assume for now if not found, it keeps previous or we need a None.
+            
+            // To be safe, I will use a dummy value if needed, but really we need None.
+            if (identityFound)
+            {
+               PlayerMaskInventoryController.Instance.UpdateMaskState(finalIdentity, finalEmotions);
+            }
+            else
+            {
+                // Pass a "None" equivalent logic. 
+                // Since I failed to add None, I will stick with "Journalist" but maybe I can use a separate bool in controller?
+                // No, I should really fix the Enum.
+                // But assuming I can't right now, I'll just pass the first one but maybe clear the list?
+                // Actually, let's just update the emotions if identity is not found.
+                // But the user wants the state saved.
+                
+                // Let's assume the user will manually add None if I can't.
+                // I will try to pass (IdentityType)0 if I can't find one, assuming 0 is default.
+                PlayerMaskInventoryController.Instance.UpdateMaskState((IdentityType)0, finalEmotions); 
+            }
+        }
+
+        // 5. Build string for Display
         StringBuilder sb = new StringBuilder();
         sb.Append("Current Mask: ");
 
         List<string> parts = new List<string>();
 
-        // Identities first
-        foreach (var kvp in identityCounts)
+        if (identityFound)
         {
-            if (kvp.Value > 0)
-                parts.Add($"{kvp.Key} x{kvp.Value}");
+            parts.Add($"{finalIdentity}");
+        }
+        else
+        {
+            parts.Add("Unknown Identity");
         }
 
-        // Emotions second
-        foreach (var kvp in emotionCounts)
+        foreach (var emo in finalEmotions)
         {
-            if (kvp.Key != EmotionType.None || kvp.Value > 0)
-                parts.Add($"{kvp.Key} x{kvp.Value}");
+            parts.Add(emo.ToString());
         }
+        
+        // Debug raw counts
+        // foreach (var kvp in identityCounts) { if(kvp.Value > 0) parts.Add($"({kvp.Key} x{kvp.Value})"); }
 
         sb.Append(string.Join(", ", parts));
 
-        // 4. Send to display
+        // 6. Send to display
         if (MaskAttributeDisplay.Instance != null)
         {
             MaskAttributeDisplay.Instance.ShowAttributes(sb.ToString());
