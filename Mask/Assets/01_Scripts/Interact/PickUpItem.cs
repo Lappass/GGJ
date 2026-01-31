@@ -9,6 +9,10 @@ public class PickupItem : Interactable
     [Header("Pickup")]
     [SerializeField] private bool destroyOnPickup = true;
 
+    [Header("Reward")]
+    [Tooltip("If set, unlocking this reward on pickup. If dialogue is shown, consider delaying via FragmentRewarder instead.")]
+    [SerializeField] private GameObject fragmentReward;
+    
     [Header("Dialogue On Pickup")]
     [SerializeField] private bool showDialogue = true;
     [SerializeField] private DialogueManager dialogueManager;
@@ -21,6 +25,12 @@ public class PickupItem : Interactable
     {
         if (_picked) return;
         _picked = true;
+
+        // Reward logic
+        if (fragmentReward != null && PlayerMaskInventoryController.Instance != null)
+        {
+            PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+        }
 
         if (showDialogue && dialogueManager != null && dialogueSequence != null
             && dialogueSequence.lines != null && dialogueSequence.lines.Count > 0)

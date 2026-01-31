@@ -10,6 +10,10 @@ public class PickableItem : MonoBehaviour
     [SerializeField] private GameObject fragmentReward;
 
     [SerializeField] private KeyCode interactKey = KeyCode.E;
+    
+    [Header("Behavior")]
+    [Tooltip("Should the object be destroyed immediately when picked up? Uncheck this if you want to play dialogue first.")]
+    [SerializeField] private bool destroyOnPickup = true;
 
     private bool isPlayerInRange = false;
 
@@ -54,7 +58,21 @@ public class PickableItem : MonoBehaviour
             InteractionManager.Instance.HidePrompt();
         }
 
-        Destroy(gameObject);
+        if (destroyOnPickup)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            // If not destroying, we should probably disable collider/visuals or at least disable this script
+            // so it can't be picked up again immediately?
+            // For now, let's just disable the collider to prevent re-triggering
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+            
+            // Also hide prompt just in case
+            isPlayerInRange = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
