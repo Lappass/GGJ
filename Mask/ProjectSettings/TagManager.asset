@@ -47,11 +47,11 @@ TagManager:
   - name: Ground
     uniqueID: 565730907
     locked: 0
-  - name: Object
-    uniqueID: 2589752171
-    locked: 0
   - name: Player
     uniqueID: 3782956891
+    locked: 0
+  - name: Object
+    uniqueID: 2589752171
     locked: 0
   - name: Foward
     uniqueID: 3515077499
