@@ -1,48 +1,35 @@
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour
+public class DialogueTrigger : Interactable
 {
+    [Header("Dialogue")]
     public DialogueManager dialogueUI;
-    public DialogueManager.DialogueSequence sequence;
+    public DialogueSequence sequence;
 
-    public bool requireInteractKey = true;
-    public KeyCode interactKey = KeyCode.E;
+    [Header("Trigger Settings")]
     public bool playOnce = true;
 
+    [Header("Priority")]
+    [SerializeField] private int priority = 50;
+    public override int Priority => priority;
+
     private bool _hasPlayed = false;
-    private bool _playerInside = false;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public override bool CanInteract
     {
-        if (!other.CompareTag("Player")) return;
-        _playerInside = true;
-
-        if (!requireInteractKey)
-            TryPlay();
+        get
+        {
+            if (dialogueUI == null) return false;
+            if (sequence == null || sequence.lines == null || sequence.lines.Count == 0) return false;
+            if (dialogueUI.IsPlaying) return false;
+            if (playOnce && _hasPlayed) return false;
+            return true;
+        }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public override void Interact(PlayerInteractor interactor)
     {
-        if (!other.CompareTag("Player")) return;
-        _playerInside = false;
-    }
-
-    private void Update()
-    {
-        if (!_playerInside) return;
-        if (!requireInteractKey) return;
-
-        if (Input.GetKeyDown(interactKey))
-            TryPlay();
-    }
-
-    private void TryPlay()
-    {
-        if (dialogueUI == null) return;
-        if (sequence == null || sequence.lines == null || sequence.lines.Count == 0) return;
-
-        if (dialogueUI.IsPlaying) return;
-        if (playOnce && _hasPlayed) return;
+        if (!CanInteract) return;
 
         _hasPlayed = true;
         dialogueUI.Play(sequence);
