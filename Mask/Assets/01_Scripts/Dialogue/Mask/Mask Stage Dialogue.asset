@@ -31,7 +31,9 @@ MonoBehaviour:
       lines:
       - speaker: Suspect
         content: No comments
-    fragmentsToGrant: []
+    fragmentsToGrant:
+    - {fileID: 365179775200999441, guid: 6908c47bdb12055458a5c8655f44fd48, type: 3}
+    - {fileID: 365179775200999441, guid: 2dda3366f82563d41a52e4069c0498cd, type: 3}
     grantOnce: 1
   - identity: 0
     emotion1: 6
@@ -51,7 +53,8 @@ MonoBehaviour:
       lines:
       - speaker: Suspect
         content: I already told you that I was asleep the whole night.
-    fragmentsToGrant: []
+    fragmentsToGrant:
+    - {fileID: 365179775200999441, guid: 2ef220d860d4cb143bb3782eb35cf426, type: 3}
     grantOnce: 1
   - identity: 2
     emotion1: 1
@@ -77,5 +80,9 @@ MonoBehaviour:
       lines:
       - speaker: Suspect
         content: " I don\u2019t know what else you expect me to answer."
-    fragmentsToGrant: []
+    fragmentsToGrant:
+    - {fileID: 365179775200999441, guid: 6e7e1dbccacdaf448a726657507637ae, type: 3}
+    - {fileID: 5104636081324450170, guid: d08332f3d7acedb4bad6165807bad837, type: 3}
+    - {fileID: 3760661679761297241, guid: 278074812a9791d45b8e42938d683006, type: 3}
+    - {fileID: 3760661679761297241, guid: cd9afc3347a816946b344c105a3d7382, type: 3}
     grantOnce: 1
