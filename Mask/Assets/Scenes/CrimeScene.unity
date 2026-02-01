@@ -2546,6 +2546,12 @@ MonoBehaviour:
     lines:
     - speaker: Me
       content: The dead man seems too heavy for the suspect to fight against
+  enableGlowHint: 0
+  glowVisual: {fileID: 0}
+  glowIntensity: 1
+  checkIdentity: 0
+  requiredIdentity: 0
+  requiredEmotions: 
   onPickedUp:
     m_PersistentCalls:
       m_Calls:
@@ -3321,6 +3327,12 @@ MonoBehaviour:
     lines:
     - speaker: Me
       content: The window has been opened
+  enableGlowHint: 1
+  glowVisual: {fileID: 0}
+  glowIntensity: 0.1
+  checkIdentity: 0
+  requiredIdentity: 1
+  requiredEmotions: 
   onPickedUp:
     m_PersistentCalls:
       m_Calls:

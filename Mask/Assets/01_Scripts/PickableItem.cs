@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PickableItem : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class PickableItem : MonoBehaviour
     [Tooltip("Should the object be destroyed immediately when picked up? Uncheck this if you want to play dialogue first.")]
     [SerializeField] private bool destroyOnPickup = true;
 
+    [Header("Glow Hint")]
+    [SerializeField] private bool enableGlowHint = false;
+    [SerializeField] private GameObject glowVisual;
+    [SerializeField] private bool checkIdentity = false;
+    [SerializeField] private IdentityType requiredIdentity;
+    [SerializeField] private List<EmotionType> requiredEmotions;
+
     [Header("Events")]
     public UnityEngine.Events.UnityEvent onPickedUp;
 
@@ -29,8 +37,57 @@ public class PickableItem : MonoBehaviour
             if (isPicked)
             {
                 Destroy(gameObject);
+                return;
             }
         }
+
+        if (enableGlowHint)
+        {
+            // Initial state
+            if (glowVisual != null) glowVisual.SetActive(false);
+
+            if (PlayerMaskInventoryController.Instance != null)
+            {
+                PlayerMaskInventoryController.Instance.OnMaskStateChanged += CheckGlow;
+                CheckGlow();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (enableGlowHint && PlayerMaskInventoryController.Instance != null)
+        {
+            PlayerMaskInventoryController.Instance.OnMaskStateChanged -= CheckGlow;
+        }
+    }
+
+    private void CheckGlow()
+    {
+        if (!enableGlowHint || glowVisual == null) return;
+        if (PlayerMaskInventoryController.Instance == null) return;
+
+        bool identityMatch = true;
+        if (checkIdentity)
+        {
+            identityMatch = PlayerMaskInventoryController.Instance.CurrentIdentity == requiredIdentity;
+        }
+
+        bool emotionMatch = true;
+        if (requiredEmotions != null && requiredEmotions.Count > 0)
+        {
+            foreach (var reqEmo in requiredEmotions)
+            {
+                if (!PlayerMaskInventoryController.Instance.CurrentEmotions.Contains(reqEmo))
+                {
+                    emotionMatch = false;
+                    break;
+                }
+            }
+        }
+
+        bool shouldGlow = identityMatch && emotionMatch;
+        glowVisual.SetActive(shouldGlow);
     }
 
     private void Update()

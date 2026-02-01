@@ -42,6 +42,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         {
             Debug.Log($"Slot {name} destroying {currentItem.name}");
             
+            // Capture original prefab before destroying
+            GameObject prefabToRestore = currentItem.originalPrefab;
+
             // Logic: Destroy object -> Inventory Controller Refresh -> Icon reappears in inventory
             Destroy(currentItem.gameObject);
             currentItem = null;
@@ -52,9 +55,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 MaskManager.Instance.OnMaskContentChanged();
             }
             
-            // Trigger Inventory Refresh so the icon comes back
-            if (PlayerMaskInventoryController.Instance != null)
+            // Restore to inventory
+            if (PlayerMaskInventoryController.Instance != null && prefabToRestore != null)
             {
+                PlayerMaskInventoryController.Instance.UnlockFragment(prefabToRestore);
+            }
+            else if (PlayerMaskInventoryController.Instance != null)
+            {
+                // Fallback just in case, though this might not restore the item if it was removed
                 PlayerMaskInventoryController.Instance.ForceRefreshUI();
             }
         }

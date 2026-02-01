@@ -19,6 +19,9 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     // Optional flag if you need to know if this was spawned dynamically
     [HideInInspector] public bool isSpawnedFromInventory = false; 
 
+    // Reference to the original prefab this instance was spawned from (for returning to inventory)
+    [HideInInspector] public GameObject originalPrefab;
+    
     private Vector2 positionBeforeDrag;
     private Transform rootCanvasTransform;
 
@@ -101,10 +104,16 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
     }
 
+    // Callback for when drag ends (useful for the inventory icon spawner)
+    public System.Action<PointerEventData> onEndDragCallback;
+
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1.0f;
+
+        // Notify listeners
+        onEndDragCallback?.Invoke(eventData);
 
         // If the parent is still the root canvas
         if (transform.parent == rootCanvasTransform && returnToStartPosOnRelease)
