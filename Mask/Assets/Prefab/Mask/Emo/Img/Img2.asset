@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 616f9ddec7c05fe4a8a0e40bdbd764a1, type: 3}
-  m_Name: Img2
+  m_Name: IMG2
   m_EditorClassIdentifier: 
   type: 0
-  emotionValue: 5
+  emotionValue: 3
   identityValue: 0
-  icon: {fileID: 5466183919064489532, guid: f6d4db6cc1e2cfe48abf72141672344d, type: 3}
+  icon: {fileID: -8412431244562392104, guid: b640c96a1f1306242bb5ae3665522955, type: 3}
   defaultPosition: 0
   description: 

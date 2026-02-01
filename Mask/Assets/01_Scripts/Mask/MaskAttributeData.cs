@@ -12,10 +12,11 @@ public enum AttributeType
 public enum EmotionType
 {
     None,
-    Happy,
-    Sad,
+    Confident,
+    Reasoning,
+    IMG,
     Angry,
-    Fearful,
+    Pitful,
     Understanding,
 }
 
