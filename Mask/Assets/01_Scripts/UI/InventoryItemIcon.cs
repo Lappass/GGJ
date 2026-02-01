@@ -35,11 +35,24 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
             c.a = 1f;
             img.color = c;
         }
+
+        // Ensure CanvasGroup is visible
+        CanvasGroup cg = GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.alpha = 1f;
+            cg.blocksRaycasts = true;
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (realPrefabToSpawn == null) return;
+
+        // Hide the icon while dragging
+        CanvasGroup cg = GetComponent<CanvasGroup>();
+        if (cg == null) cg = gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = 0f;
 
         // 1. Spawn the REAL draggable object on the root canvas
         currentDragObject = Instantiate(realPrefabToSpawn, rootCanvas.transform);
@@ -49,6 +62,9 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
         currentDraggable = currentDragObject.GetComponent<DraggableUI>();
         if (currentDraggable != null)
         {
+            // Set original prefab so we can return it to inventory later
+            currentDraggable.originalPrefab = realPrefabToSpawn;
+
             // Tell it that it doesn't have a "home" parent in the layout group.
             // It is a temporary object until placed.
             currentDraggable.returnToStartPosOnRelease = false; 
@@ -56,41 +72,68 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
             // Manually trigger its drag start
             // We need to set pointerDrag on eventData so ItemSlot can find it
             eventData.pointerDrag = currentDragObject;
+
+            // Subscribe to the end drag event since we gave away control
+            currentDraggable.onEndDragCallback += OnChildEndDrag;
+
             currentDraggable.OnBeginDrag(eventData);
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        // This might not be called if pointerDrag was swapped, but good to keep just in case
         if (currentDraggable != null)
         {
             currentDraggable.OnDrag(eventData);
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    // This is called by DraggableUI via callback
+    private void OnChildEndDrag(PointerEventData eventData)
     {
         if (currentDraggable != null)
         {
-            currentDraggable.OnEndDrag(eventData);
+            // Unsubscribe
+            currentDraggable.onEndDragCallback -= OnChildEndDrag;
 
             // Check if it was successfully placed
             // We can check if its parent is now an ItemSlot
-            if (currentDragObject.transform.parent.GetComponent<ItemSlot>() != null)
+            if (currentDragObject != null && currentDragObject.transform.parent != null && 
+                currentDragObject.transform.parent.GetComponent<ItemSlot>() != null)
             {
                 // Success! It found a home.
+                // Remove from inventory so it doesn't reappear on refresh
+                if (PlayerMaskInventoryController.Instance != null)
+                {
+                    PlayerMaskInventoryController.Instance.RemoveFragment(realPrefabToSpawn);
+                }
+                
                 // Destroy the icon from inventory since the item is now in the world
                 Destroy(gameObject);
             }
             else
             {
                 // Failed to place (dropped in void or invalid slot)
-                Destroy(currentDragObject);
+                if (currentDragObject != null)
+                {
+                    Destroy(currentDragObject);
+                }
+                
+                // Show icon again
+                CanvasGroup cg = GetComponent<CanvasGroup>();
+                if (cg != null) cg.alpha = 1f;
             }
             
             currentDragObject = null;
             currentDraggable = null;
         }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // This is unlikely to be called if pointerDrag was swapped, 
+        // but we implement it to satisfy interface
     }
 }
 

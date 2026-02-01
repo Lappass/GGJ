@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PickupItem : Interactable
 {
@@ -22,6 +23,16 @@ public class PickupItem : Interactable
     [SerializeField] private bool showDialogue = true;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private DialogueSequence dialogueSequence;
+
+    [Header("Glow Hint")]
+    [SerializeField] private bool enableGlowHint = false;
+    [SerializeField] private GameObject glowVisual;
+    [Range(0f, 1f)]
+    [SerializeField] private float glowIntensity = 1f;
+    [SerializeField] private bool checkIdentity = false;
+    [SerializeField] private IdentityType requiredIdentity;
+    [SerializeField] private List<EmotionType> requiredEmotions;
+
     [Header("Events")]
     public UnityEngine.Events.UnityEvent onPickedUp;
 
@@ -43,6 +54,97 @@ public class PickupItem : Interactable
             {
                 if (destroyOnPickup) Destroy(gameObject);
                 else gameObject.SetActive(false);
+                return;
+            }
+        }
+
+        if (enableGlowHint)
+        {
+            // Initial state
+            if (glowVisual != null) glowVisual.SetActive(false);
+
+            if (PlayerMaskInventoryController.Instance != null)
+            {
+                // Changed to listen for Inventory Updates (unlocks), not Mask State (equipped)
+                PlayerMaskInventoryController.Instance.OnInventoryUpdated += CheckGlow;
+                CheckGlow();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (enableGlowHint && PlayerMaskInventoryController.Instance != null)
+        {
+            PlayerMaskInventoryController.Instance.OnInventoryUpdated -= CheckGlow;
+        }
+    }
+
+    private void CheckGlow()
+    {
+        if (!enableGlowHint || glowVisual == null) return;
+        if (PlayerMaskInventoryController.Instance == null) return;
+
+        var unlockedFragments = PlayerMaskInventoryController.Instance.GetUnlockedFragments();
+        
+        bool identityMatch = true;
+        if (checkIdentity)
+        {
+            identityMatch = false; 
+            // Check if any unlocked fragment provides this identity
+            foreach (var fragment in unlockedFragments)
+            {
+                if (fragment == null) continue;
+                var ui = fragment.GetComponent<DraggableUI>();
+                if (ui != null && ui.attributeData != null)
+                {
+                    if (ui.attributeData.type == AttributeType.Identity && 
+                        ui.attributeData.identityValue == requiredIdentity)
+                    {
+                        identityMatch = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        bool emotionMatch = true;
+        if (requiredEmotions != null && requiredEmotions.Count > 0)
+        {
+            // Collect all unlocked emotion types
+            HashSet<EmotionType> unlockedEmotions = new HashSet<EmotionType>();
+            foreach (var fragment in unlockedFragments)
+            {
+                if (fragment == null) continue;
+                var ui = fragment.GetComponent<DraggableUI>();
+                if (ui != null && ui.attributeData != null && ui.attributeData.type == AttributeType.Emotion)
+                {
+                    unlockedEmotions.Add(ui.attributeData.emotionValue);
+                }
+            }
+
+            // Verify we have all required emotions
+            foreach (var reqEmo in requiredEmotions)
+            {
+                if (!unlockedEmotions.Contains(reqEmo))
+                {
+                    emotionMatch = false;
+                    break;
+                }
+            }
+        }
+
+        bool shouldGlow = identityMatch && emotionMatch;
+        glowVisual.SetActive(shouldGlow);
+
+        if (shouldGlow)
+        {
+            var sr = glowVisual.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                Color c = sr.color;
+                c.a = glowIntensity;
+                sr.color = c;
             }
         }
     }
