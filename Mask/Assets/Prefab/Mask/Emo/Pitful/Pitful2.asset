@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pitful2
   m_EditorClassIdentifier: 
   type: 0
-  emotionValue: 4
+  emotionValue: 5
   identityValue: 0
   icon: {fileID: 2745275964043311122, guid: 7a379187f73de664bafc4d9053c49340, type: 3}
   defaultPosition: 0

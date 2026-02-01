@@ -346,6 +346,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5310853439637095769, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
   m_PrefabInstance: {fileID: 1031866555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &98325777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98325778}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &98325778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98325777}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.21, y: -11.78, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &108319542 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5408526329293500194, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
@@ -1138,7 +1169,26 @@ MonoBehaviour:
   dialogueSequence:
     lines:
     - speaker: Me
-      content: aaaaaa
+      content: 'In fact, I am not that surprised. Are you though?
+
+'
+    - speaker: Me
+      content: "An unstable, skinny, anxious, traumatized man felt he had been threatened,
+        overreacted, and killed a bigger guy under the effects of adrenaline\u2026\r\n"
+    - speaker: Me
+      content: 'Simulated by the bloody scene he caused, he followed his old pattern:
+        drinking, escaping from everything, even his own memory about hiding the
+        weapon inside his own closet.'
+    - speaker: Me
+      content: "Sometimes the truth is that simple, unfortunately. \r\n"
+    - speaker: Me
+      content: 'However, even though he might not be lying about his memory, what
+        he has done will not be undone.
+
+'
+    - speaker: Me
+      content: "(You somehow felt pitiful for Mr. Inmes, the murderer, for an unknown
+        reason) \r\n"
   enableGlowHint: 0
   glowVisual: {fileID: 0}
   activeVisual: {fileID: 1411009020}
@@ -3286,7 +3336,7 @@ Transform:
   m_GameObject: {fileID: 1049059826}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23, y: -2.8599854, z: 0}
+  m_LocalPosition: {x: -17.21, y: -11.78, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5008,7 +5058,16 @@ MonoBehaviour:
   dialogueSequence:
     lines:
     - speaker: Me
-      content: AAAAA
+      content: "Well\u2026I would also puke if I returned home with blood on my face."
+    - speaker: Me
+      content: "The sleeping pills could help, but never resolve the real problem
+        and the crime we commit. After all, we all need to wake up in the end. \r\n"
+    - speaker: Me
+      content: But it could also be caused by the mixed use of alcohol and sleeping
+        pills. Anyway, it is always ok to have more than one theory.
+    - speaker: 
+      content: "(You are uncertain about the cause of this pile of puke. It is eventually
+        up to Mr. Inmes\u2019 interpretation.)"
   enableGlowHint: 0
   glowVisual: {fileID: 0}
   activeVisual: {fileID: 582482945}
@@ -6198,6 +6257,7 @@ SceneRoots:
   - {fileID: 1065829062}
   - {fileID: 1373182319}
   - {fileID: 139354380}
+  - {fileID: 98325778}
   - {fileID: 1049059828}
   - {fileID: 598690870}
   - {fileID: 1964025781}

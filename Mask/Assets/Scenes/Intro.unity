@@ -3231,7 +3231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7661481825378693541, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 484.8194
+      value: 545.7999
       objectReference: {fileID: 0}
     - target: {fileID: 7661481825378693541, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3239,7 +3239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7661481825378693541, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -596.5166
+      value: -566.02637
       objectReference: {fileID: 0}
     - target: {fileID: 7661481825378693541, guid: 40278a5a4f5982c4ca859b653de594d3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4095,7 +4095,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -367.37482, y: 0, z: -247.4364, w: 0}
+  m_margin: {x: -73.55945, y: 0, z: 36.215515, w: -190.33315}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4125,7 +4125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16, y: 315}
+  m_AnchoredPosition: {x: 282, y: 215.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1651787060
@@ -5289,6 +5289,37 @@ PrefabInstance:
       propertyPath: dialogueManager
       value: 
       objectReference: {fileID: 1191810084}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[0].content
+      value: "Even failed to protect the crime scene? The cops suck! They don\u2019t
+        even know how to keep a site preserved. Hello?? professional training?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[0].speaker
+      value: Me
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[1].content
+      value: Someone has been killed. Do they actually take this case seriously?
+        Jesus!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[1].speaker
+      value: Me
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[2].content
+      value: " However, I could definitely gain some help from this file they lost
+        here\u2026\r\n(You are pissed off by how the crime scene looks.)\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326312556620157854, guid: de53744ca748e4243b3f03044135306c, type: 3}
+      propertyPath: dialogueSequence.lines.Array.data[2].speaker
+      value: Me
+      objectReference: {fileID: 0}
     - target: {fileID: 5818443440656134249, guid: de53744ca748e4243b3f03044135306c, type: 3}
       propertyPath: m_Name
       value: Doc

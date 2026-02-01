@@ -19,18 +19,27 @@ MonoBehaviour:
     emotion3: 0
     correctDialogue:
       lines:
-      - speaker: Suspect
-        content: What are you implying
-      - speaker: Suspect
-        content: I have no business with all of this nonsense, I was asleep the whole
-          night.
-      - speaker: Suspect
-        content: "Of course your \u201Ccrime scene\u201D is modified, ask the press,
-          they can\u2019t even find the weapon."
+      - speaker: Me
+        content: "Listen. I\u2019m not here playing some small talk game with you."
+      - speaker: Me
+        content: "If I say I need you to speak, you speak. We all know people can\u2019t
+          get away from what they\u2019ve done."
+      - speaker: Inmes
+        content: What are you implying?
+      - speaker: Inmes
+        content: 'I have no business with all of this nonsense. I was asleep the
+          whole night.
+
+'
+      - speaker: Inmes
+        content: " Of course, your \u201Ccrime scene\u201D is faked. Ask the media,
+          and they can\u2019t even find the weapon. \r\n"
     wrongDialogue:
       lines:
-      - speaker: Suspect
-        content: No comments
+      - speaker: Inmes
+        content: ....
+      - speaker: Me
+        content: " Mr. Inmes won\u2019t speak. I need to crack his mouth open.\r\n"
     fragmentsToGrant:
     - {fileID: 365179775200999441, guid: 6908c47bdb12055458a5c8655f44fd48, type: 3}
     - {fileID: 365179775200999441, guid: 2dda3366f82563d41a52e4069c0498cd, type: 3}
@@ -41,18 +50,42 @@ MonoBehaviour:
     emotion3: 0
     correctDialogue:
       lines:
-      - speaker: Suspect
-        content: "I don\u2019t know, I can\u2019t say for certain."
-      - speaker: Suspect
-        content: "It is possible though\u2026 The gap between the two windows is
-          close.\r\n"
-      - speaker: Suspect
-        content: And I did take sleeping pills that night so it is difficult to wake
-          me up even if someone entered my house.
+      - speaker: Me
+        content: Hello! Mr. Inmes, right? I am a journalist from the local press.
+          We are interested in your case.
+      - speaker: Me
+        content: 'Do you think it is comfortable for us to help you spread your words?
+          We believe people should not only hear from the authorities.
+
+'
+      - speaker: Inmes
+        content: 'What do you want? Do you know anything more than the authorities?
+
+'
+      - speaker: Me
+        content: "Actually, yes. We got first-hand news that the window in your apartment
+          was open. \r\n"
+      - speaker: Me
+        content: Do you think someone might have entered your room through the window
+          that night?
+      - speaker: Inmes
+        content: "I don\u2019t know, I cannot say for certain. It is possible, though\u2026
+          The gap between the two windows is small."
+      - speaker: Inmes
+        content: And I did take sleeping pills that night, so it is difficult to
+          wake me up even if someone entered my house.
+      - speaker: Inmes
+        content: Thank you, Mr. Inmes. It will be so helpful.
     wrongDialogue:
       lines:
-      - speaker: Suspect
-        content: I already told you that I was asleep the whole night.
+      - speaker: Me
+        content: 'What were you doing last night?
+
+'
+      - speaker: Inmes
+        content: ' I already told you that I was asleep the whole night.
+
+'
     fragmentsToGrant:
     - {fileID: 365179775200999441, guid: 2ef220d860d4cb143bb3782eb35cf426, type: 3}
     grantOnce: 1
@@ -62,24 +95,26 @@ MonoBehaviour:
     emotion3: 0
     correctDialogue:
       lines:
-      - speaker: Suspect
-        content: "I don\u2019t know, doctor. What stages do you think I am experiencing
-          now?"
-      - speaker: Suspect
-        content: "Since you mention it I do have remembered the drink\u2026and the
-          grossness I felt in the morning "
-      - speaker: Suspect
-        content: "I smell blood, from\u2026all of my room."
-      - speaker: Suspect
-        content: "Closet? Yes\u2026some of them from the closet."
-      - speaker: Suspect
-        content: "I feel like I am totally out of control\u2026"
-      - speaker: Suspect
-        content: "I could have done anything\u2026"
+      - speaker: Me
+        content: aaaaa
+      - speaker: Me
+        content: ssdbdsadsa
+      - speaker: Me
+        content: wsdsb
     wrongDialogue:
       lines:
-      - speaker: Suspect
-        content: " I don\u2019t know what else you expect me to answer."
+      - speaker: Me
+        content: 'Mind if you share more information?
+
+'
+      - speaker: Inmes
+        content: 'I have said everything I know.
+
+'
+      - speaker: Me
+        content: '(I might need to explore more to dig more information from him)
+
+'
     fragmentsToGrant:
     - {fileID: 365179775200999441, guid: 6e7e1dbccacdaf448a726657507637ae, type: 3}
     - {fileID: 5104636081324450170, guid: d08332f3d7acedb4bad6165807bad837, type: 3}
