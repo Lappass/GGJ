@@ -24,7 +24,7 @@ public enum IdentityType
     Detective,
     Therapist,
     DirtyCop,
-
+    None
 }
 
 [CreateAssetMenu(fileName = "NewMaskAttribute", menuName = "Mask/Attribute Data")]

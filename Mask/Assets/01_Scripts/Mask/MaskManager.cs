@@ -56,8 +56,9 @@ public class MaskManager : MonoBehaviour
                 }
 
                 // Fallback validation based on index if slot is None (generic):
-                // Assuming maskSlots are ordered: 0:TopLeft, 1:TopRight, 2:BottomLeft, 3:BottomRight
-                // This helps if slots are not configured in Inspector but dragged in correct order.
+                // REMOVED: This was causing issues if slots were not in expected 0-3 order or if placement was loose.
+                // We trust that if an item is in a slot, it counts.
+                /* 
                 if (slot.acceptedPosition == MaskPosition.None && maskSlots.Count == 4)
                 {
                     MaskPosition expectedPos = MaskPosition.None;
@@ -76,6 +77,7 @@ public class MaskManager : MonoBehaviour
                          continue;
                     }
                 }
+                */
 
                 MaskAttributeData data = slot.currentItem.attributeData;
                 totalItems++;
@@ -106,14 +108,12 @@ public class MaskManager : MonoBehaviour
         // 3. Logic for Thresholds
         // Detective: 3, Journalist: 2, Therapist: 1, DirtyCop: 4
         
-        IdentityType finalIdentity = IdentityType.Journalist; // Default or None if you had it. 
-        // Since we don't have None in the enum easily (or maybe we do), let's use a flag or check counts.
-        // Actually, let's determine based on priority or just first match?
-        // Let's assume hierarchy: DirtyCop > Detective > Journalist > Therapist (based on difficulty?)
-        
-        // Better: Reset to a "None" equivalent.
-        // If I can't easily add None to the enum right now, I'll rely on a separate boolean or just use a fallback.
-        // Let's assume standard is no identity.
+        // DEBUG: Print counts
+        string debugCounts = "Counts: ";
+        foreach(var kvp in identityCounts) debugCounts += $"{kvp.Key}:{kvp.Value} ";
+        Debug.Log(debugCounts);
+
+        IdentityType finalIdentity = IdentityType.None;  
         bool identityFound = false;
 
         if (identityCounts.ContainsKey(IdentityType.DirtyCop) && identityCounts[IdentityType.DirtyCop] >= 4)
@@ -154,31 +154,14 @@ public class MaskManager : MonoBehaviour
         // 4. Update Player State
         if (PlayerMaskInventoryController.Instance != null)
         {
-            // If no identity found, what do we pass?
-            // Since we didn't successfully add None, maybe just pass the first enum value if !identityFound?
-            // Or careful logic.
-            // Let's just update if found, or handle "None" conceptually.
-            // I'll try to cast 0 or similar if needed, but safer to just send what we have.
-            // If identityFound is false, we might not want to set it to Therapist/Journalist incorrectly.
-            // I'll assume for now if not found, it keeps previous or we need a None.
-            
-            // To be safe, I will use a dummy value if needed, but really we need None.
             if (identityFound)
             {
                PlayerMaskInventoryController.Instance.UpdateMaskState(finalIdentity, finalEmotions);
             }
             else
             {
-                // Pass a "None" equivalent logic. 
-                // Since I failed to add None, I will stick with "Journalist" but maybe I can use a separate bool in controller?
-                // No, I should really fix the Enum.
-                // But assuming I can't right now, I'll just pass the first one but maybe clear the list?
-                // Actually, let's just update the emotions if identity is not found.
-                // But the user wants the state saved.
-                
-                // Let's assume the user will manually add None if I can't.
-                // I will try to pass (IdentityType)0 if I can't find one, assuming 0 is default.
-                PlayerMaskInventoryController.Instance.UpdateMaskState((IdentityType)0, finalEmotions); 
+                // Pass None now that we have it
+                PlayerMaskInventoryController.Instance.UpdateMaskState(IdentityType.None, finalEmotions); 
             }
         }
 
