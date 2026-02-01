@@ -41,10 +41,42 @@ public class MaskManager : MonoBehaviour
         Dictionary<IdentityType, int> identityCounts = new Dictionary<IdentityType, int>();
         int totalItems = 0;
 
-        foreach (var slot in maskSlots)
+        for (int i = 0; i < maskSlots.Count; i++)
         {
+            var slot = maskSlots[i];
             if (slot != null && slot.currentItem != null && slot.currentItem.attributeData != null)
             {
+                // Strict validation:
+                // If the slot defines an accepted position, the item MUST match it.
+                if (slot.acceptedPosition != MaskPosition.None && 
+                    slot.currentItem.positionType != slot.acceptedPosition)
+                {
+                    Debug.LogWarning($"Slot {slot.name} has item {slot.currentItem.name} with mismatched position type. Ignoring attributes.");
+                    continue;
+                }
+
+                // Fallback validation based on index if slot is None (generic):
+                // Assuming maskSlots are ordered: 0:TopLeft, 1:TopRight, 2:BottomLeft, 3:BottomRight
+                // This helps if slots are not configured in Inspector but dragged in correct order.
+                if (slot.acceptedPosition == MaskPosition.None && maskSlots.Count == 4)
+                {
+                    MaskPosition expectedPos = MaskPosition.None;
+                    switch (i)
+                    {
+                        case 0: expectedPos = MaskPosition.TopLeft; break;
+                        case 1: expectedPos = MaskPosition.TopRight; break;
+                        case 2: expectedPos = MaskPosition.BottomLeft; break;
+                        case 3: expectedPos = MaskPosition.BottomRight; break;
+                    }
+
+                    if (slot.currentItem.positionType != MaskPosition.None && 
+                        slot.currentItem.positionType != expectedPos)
+                    {
+                         Debug.LogWarning($"Slot index {i} (implicitly {expectedPos}) has item {slot.currentItem.name} ({slot.currentItem.positionType}). Ignoring attributes.");
+                         continue;
+                    }
+                }
+
                 MaskAttributeData data = slot.currentItem.attributeData;
                 totalItems++;
 
