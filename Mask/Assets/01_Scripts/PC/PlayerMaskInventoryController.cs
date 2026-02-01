@@ -31,6 +31,22 @@ public class PlayerMaskInventoryController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Check initial unlocks to trigger popups if needed
+        // Use a copy to avoid modification issues during iteration
+        if (unlockedFragments != null && unlockedFragments.Count > 0)
+        {
+            var initialList = new List<GameObject>(unlockedFragments);
+            unlockedFragments.Clear(); // Clear and re-add via UnlockFragment to trigger logic
+            
+            foreach (var frag in initialList)
+            {
+                UnlockFragment(frag);
+            }
+        }
+    }
+
     public List<GameObject> GetUnlockedFragments()
     {
         return unlockedFragments;
@@ -43,6 +59,24 @@ public class PlayerMaskInventoryController : MonoBehaviour
             unlockedFragments.Add(fragmentPrefab);
             Debug.Log($"Unlocked fragment: {fragmentPrefab.name}");
             
+            // Notify Achievement Popup with Logic (Check First Time)
+            if (AchievementPopup.Instance != null)
+            {
+                var dragger = fragmentPrefab.GetComponent<DraggableUI>();
+                if (dragger != null && dragger.attributeData != null)
+                {
+                    // Pass the raw type/value to AchievementPopup, let it handle DB lookup and "Once" check
+                    if (dragger.attributeData.type == AttributeType.Identity)
+                    {
+                        AchievementPopup.Instance.CheckAndShowUnlock(AttributeType.Identity, (int)dragger.attributeData.identityValue);
+                    }
+                    else if (dragger.attributeData.type == AttributeType.Emotion)
+                    {
+                        AchievementPopup.Instance.CheckAndShowUnlock(AttributeType.Emotion, (int)dragger.attributeData.emotionValue);
+                    }
+                }
+            }
+
             // Notify listeners (UI)
             OnInventoryUpdated?.Invoke();
         }

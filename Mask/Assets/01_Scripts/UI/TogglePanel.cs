@@ -35,10 +35,41 @@ public class TogglePanel : MonoBehaviour
     {
         if (targetPanel != null)
         {
+            if (targetPanel.activeSelf)
+            {
+                CleanupDraggables(targetPanel.transform);
+            }
             targetPanel.SetActive(!targetPanel.activeSelf);
         }
     }
+
+    private void CleanupDraggables(Transform panelRoot)
+    {
+        // 1. Handle items spawned from InventoryItemIcon
+        InventoryItemIcon[] icons = panelRoot.GetComponentsInChildren<InventoryItemIcon>(true);
+        foreach (var icon in icons)
+        {
+            icon.CancelDrag();
+        }
+
+        // 2. Handle items moved from slots (DraggableUI)
+        // Find all active draggables in the scene (since dragged items are reparented to root, they are active)
+        DraggableUI[] allDraggables = FindObjectsOfType<DraggableUI>();
+        foreach (var drag in allDraggables)
+        {
+            // If the item came from a slot inside this panel
+            if (drag.parentBeforeDrag != null && drag.parentBeforeDrag.IsChildOf(panelRoot))
+            {
+                // And it's currently floating (not in its original spot)
+                if (drag.transform.parent != drag.parentBeforeDrag)
+                {
+                    drag.ReturnToPreviousParent();
+                }
+            }
+        }
+    }
 }
+
 
 
 

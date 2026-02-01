@@ -135,5 +135,19 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
         // This is unlikely to be called if pointerDrag was swapped, 
         // but we implement it to satisfy interface
     }
+
+    public void CancelDrag()
+    {
+        if (currentDragObject != null)
+        {
+            Destroy(currentDragObject);
+            currentDragObject = null;
+            currentDraggable = null;
+        }
+        
+        // Show icon again
+        CanvasGroup cg = GetComponent<CanvasGroup>();
+        if (cg != null) cg.alpha = 1f;
+    }
 }
 
