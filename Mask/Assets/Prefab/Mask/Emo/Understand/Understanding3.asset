@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Understanding3
   m_EditorClassIdentifier: 
   type: 0
-  emotionValue: 5
+  emotionValue: 6
   identityValue: 0
   icon: {fileID: -8127699078397684829, guid: 7090c427c99626444a55c7bf28f7aefd, type: 3}
   defaultPosition: 2
