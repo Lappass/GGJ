@@ -33,6 +33,19 @@ public class PickupItem : Interactable
     [SerializeField] private IdentityType requiredIdentity;
     [SerializeField] private List<EmotionType> requiredEmotions;
 
+    [Header("Optional Animation")]
+    [SerializeField] private bool playAnimationOnPickup = false;
+    [SerializeField] private Animator targetAnimator;
+    [SerializeField] private string openTriggerName = "Open";
+
+    [Header("When not destroying")]
+    [SerializeField] private bool keepVisibleAfterPickup = true;
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip pickupSfx;
+
+
     [Header("Events")]
     public UnityEngine.Events.UnityEvent onPickedUp;
 
@@ -42,6 +55,7 @@ public class PickupItem : Interactable
 
     private void Start()
     {
+        if (sfxSource == null) sfxSource = GetComponent<AudioSource>();
         // Try to auto-find dialogue manager if not assigned
         if (showDialogue && dialogueManager == null)
         {
@@ -57,6 +71,11 @@ public class PickupItem : Interactable
                 else gameObject.SetActive(false);
                 return;
             }
+        }
+
+        if (playAnimationOnPickup && targetAnimator == null)
+        {
+            targetAnimator = GetComponentInChildren<Animator>();
         }
 
         // Always check conditions on start
@@ -154,6 +173,11 @@ public class PickupItem : Interactable
         }
 
         onPickedUp?.Invoke();
+        if (pickupSfx != null)
+        {
+            var pos = Camera.main != null ? Camera.main.transform.position : transform.position;
+            AudioSource.PlayClipAtPoint(pickupSfx, pos);
+        }
 
         if (showDialogue && dialogueManager != null && dialogueSequence != null
             && dialogueSequence.lines != null && dialogueSequence.lines.Count > 0)
@@ -161,7 +185,30 @@ public class PickupItem : Interactable
             dialogueManager.Play(dialogueSequence);
         }
 
-        if (destroyOnPickup) Destroy(gameObject);
-        else gameObject.SetActive(false);
+        if (destroyOnPickup)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (keepVisibleAfterPickup)
+            {
+                var col2d = GetComponent<Collider2D>();
+                if (col2d != null) col2d.enabled = false;
+
+                this.enabled = false;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        // Play open animation once
+        if (playAnimationOnPickup && targetAnimator != null)
+        {
+            targetAnimator.SetTrigger(openTriggerName);
+        }
     }
+
 }

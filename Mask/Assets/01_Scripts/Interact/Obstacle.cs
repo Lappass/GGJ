@@ -4,7 +4,6 @@ using UnityEngine;
 public class Obstacle : Interactable
 {
     [Header("Settings")]
-    [Tooltip("Unique ID for saving state across scenes")]
     [SerializeField] private string objectID = "Obstacle_01";
 
     [Header("Priority")]
@@ -14,6 +13,10 @@ public class Obstacle : Interactable
     [Header("Move Target (required)")]
     public Transform targetPoint;
 
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip interactSfx;
+
+
     [SerializeField] private float moveDuration = 0.35f; 
     [SerializeField] private Collider2D triggerColliderToDisable; 
 
@@ -21,6 +24,11 @@ public class Obstacle : Interactable
     private bool _moving = false;
 
     public override bool CanInteract => !_used && !_moving && targetPoint != null;
+
+    private void Awake()
+    {
+        if (sfxSource == null) sfxSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -46,6 +54,9 @@ public class Obstacle : Interactable
 
         if (triggerColliderToDisable != null)
             triggerColliderToDisable.enabled = false;
+
+        if (sfxSource != null && interactSfx != null)
+            sfxSource.PlayOneShot(interactSfx);
 
         // Save state
         if (GameStateManager.Instance != null)
