@@ -6,6 +6,10 @@ public class MaskManager : MonoBehaviour
 {
     public static MaskManager Instance { get; private set; }
 
+    public IdentityType CurrentIdentity { get; private set; } = (IdentityType)0;
+    public System.Collections.Generic.List<EmotionType> CurrentEmotions { get; private set; } = new System.Collections.Generic.List<EmotionType>();
+
+
     [Header("Slots")]
     // Assign the 4 slots in Inspector
     [SerializeField] private List<ItemSlot> maskSlots;
@@ -149,6 +153,14 @@ public class MaskManager : MonoBehaviour
                 PlayerMaskInventoryController.Instance.UpdateMaskState((IdentityType)0, finalEmotions); 
             }
         }
+
+        // Save current mask state for dialogue resolution
+        CurrentIdentity = identityFound ? finalIdentity : (IdentityType)0;
+        CurrentEmotions.Clear();
+        CurrentEmotions.AddRange(finalEmotions);
+
+        if (CurrentEmotions.Count > 3)
+            CurrentEmotions.RemoveRange(3, CurrentEmotions.Count - 3);
 
         // 5. Build string for Display
         StringBuilder sb = new StringBuilder();
