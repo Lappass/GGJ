@@ -294,8 +294,10 @@ GameObject:
   m_Component:
   - component: {fileID: 175434553}
   - component: {fileID: 175434552}
+  - component: {fileID: 175434555}
+  - component: {fileID: 175434554}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,6 +373,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &175434554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175434551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841bdfa1028587a499ebd7f253701b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectID: Bottle
+  priority: 100
+  destroyOnPickup: 1
+  fragmentRewards:
+  - {fileID: 6864515163934503992, guid: 02a04c5df5def524e887cc791e8dbba8, type: 3}
+  - {fileID: 5104636081324450170, guid: a741830ef180a504dba3a9f522fc3cb2, type: 3}
+  - {fileID: 3760661679761297241, guid: f741145ce5396ab429bca484850b365b, type: 3}
+  - {fileID: 3760661679761297241, guid: 03dfc4f6d60829349b71cf84b752b76e, type: 3}
+  fragmentReward: {fileID: 0}
+  showDialogue: 1
+  dialogueManager: {fileID: 0}
+  dialogueSequence:
+    lines:
+    - speaker: Me
+      content: aaaaa
+    - speaker: Me
+      content: bbbbb
+  enableGlowHint: 0
+  glowVisual: {fileID: 0}
+  glowIntensity: 1
+  checkIdentity: 1
+  requiredIdentity: 2
+  requiredEmotions: 
+  onPickedUp:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!61 &175434555
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175434551}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.7, y: 0.36}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.7, y: 0.36}
+  m_EdgeRadius: 0
 --- !u!1 &275350097
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,7 +2624,11 @@ MonoBehaviour:
   objectID: Deadbody
   priority: 100
   destroyOnPickup: 0
-  fragmentRewards: []
+  fragmentRewards:
+  - {fileID: 6864515163934503992, guid: 70f9dc9815e75bc419e55f17ee24c710, type: 3}
+  - {fileID: 5104636081324450170, guid: 5693f5db927dc384ba8537c43bd327fb, type: 3}
+  - {fileID: 3760661679761297241, guid: 634009c40391aed4eb77d70e6263326e, type: 3}
+  - {fileID: 3760661679761297241, guid: 958340ea32050d8498d798ce93b93ef4, type: 3}
   fragmentReward: {fileID: 0}
   showDialogue: 1
   dialogueManager: {fileID: 0}
@@ -2549,7 +2639,7 @@ MonoBehaviour:
   enableGlowHint: 0
   glowVisual: {fileID: 0}
   glowIntensity: 1
-  checkIdentity: 0
+  checkIdentity: 1
   requiredIdentity: 0
   requiredEmotions: 
   onPickedUp:
@@ -3318,7 +3408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectID: Window
   priority: 100
-  destroyOnPickup: 0
+  destroyOnPickup: 1
   fragmentRewards: []
   fragmentReward: {fileID: 0}
   showDialogue: 1
@@ -3330,8 +3420,8 @@ MonoBehaviour:
   enableGlowHint: 1
   glowVisual: {fileID: 0}
   glowIntensity: 0.1
-  checkIdentity: 0
-  requiredIdentity: 1
+  checkIdentity: 1
+  requiredIdentity: 0
   requiredEmotions: 
   onPickedUp:
     m_PersistentCalls:

@@ -1437,6 +1437,14 @@ PrefabInstance:
       value: CrimeScene
       objectReference: {fileID: 0}
     - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 1651787062}
+    - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
+      propertyPath: playerRenderer
+      value: 
+      objectReference: {fileID: 1481453774}
+    - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
       propertyPath: scene1ImageObj
       value: 
       objectReference: {fileID: 0}
@@ -1460,6 +1468,10 @@ PrefabInstance:
       propertyPath: scene3ShadowObj
       value: 
       objectReference: {fileID: 1183643411}
+    - target: {fileID: 7463248240792596366, guid: 283fa6ded00bcb04e977b4217826f83a, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1651787061}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
