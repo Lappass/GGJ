@@ -8,51 +8,31 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
     public MaskStageDialogueAsset dialogueAsset;
 
     [Header("Progress Key")]
-    [Tooltip("用于保存/读取Stage进度的Key。不同场景/不同NPC要用不同Key")]
-    public string progressKey = "MaskStage_Default";
+    public string progressKey = "InterrogationRoom_Main";
 
     [Header("Options")]
-    [Tooltip("进入场景后自动播放一次")]
-    public bool playOnStart = true;
-
-    [Tooltip("如果对话正在播放，是否等待播放结束后再触发本次自动播放")]
-    public bool waitIfDialoguePlaying = true;
-
-    [Tooltip("到最后一关后是否停在最后一关（true=重复最后一关；false=超过后不播）")]
     public bool clampAtLastStage = true;
-
-    [Tooltip("延迟多少秒后触发（给场景淡入/玩家状态初始化留时间）")]
-    public float startDelay = 0.1f;
+    public float startDelay = 0.2f;
+    public bool ignoreIfDialoguePlaying = true;
 
     [Header("Optional Fallback")]
     public DialogueSequence fallbackDialogue;
 
-    private bool _hasAutoPlayedThisScene = false;
-
     private void Start()
     {
-        if (!playOnStart) return;
-        Invoke(nameof(TryAutoPlay), Mathf.Max(0f, startDelay));
+        Invoke(nameof(EvaluateAndPlay), Mathf.Max(0f, startDelay));
     }
 
-    public void TryAutoPlay()
+    public void EvaluateAndPlay()
     {
-        if (_hasAutoPlayedThisScene) return;
-        _hasAutoPlayedThisScene = true;
-
         if (dialogueManager == null || dialogueAsset == null)
         {
             PlayFallback();
             return;
         }
 
-        if (waitIfDialoguePlaying && dialogueManager.IsPlaying)
-        {
-            // 简单等一帧再试；不写协程也行
-            Invoke(nameof(TryAutoPlay), 0.1f);
-            _hasAutoPlayedThisScene = false; // 允许重试
+        if (ignoreIfDialoguePlaying && dialogueManager.IsPlaying)
             return;
-        }
 
         if (dialogueAsset.stages == null || dialogueAsset.stages.Count == 0)
         {
@@ -60,15 +40,11 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             return;
         }
 
-        int stageIndex = LoadStage();
+        int stageIndex = MaskStageProgressRuntime.GetStage(progressKey);
 
         if (!clampAtLastStage && stageIndex >= dialogueAsset.stages.Count)
-        {
-            // 超过最后一关且不clamp：不播
             return;
-        }
 
-        // clamp
         int useIndex = stageIndex;
         if (clampAtLastStage)
         {
@@ -76,24 +52,25 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             if (useIndex >= dialogueAsset.stages.Count) useIndex = dialogueAsset.stages.Count - 1;
         }
 
-        // 玩家面具状态（从 MaskManager 读取）
-        IdentityType playerIdentity = (IdentityType)0;
-        IList<EmotionType> playerEmotions = null;
-
-        if (MaskManager.Instance != null)
-        {
-            playerIdentity = MaskManager.Instance.CurrentIdentity;
-            playerEmotions = MaskManager.Instance.CurrentEmotions;
-        }
-
-        bool correct = dialogueAsset.IsCorrect(useIndex, playerIdentity, playerEmotions);
         var stage = dialogueAsset.GetStageClamped(useIndex);
-
         if (stage == null)
         {
             PlayFallback();
             return;
         }
+
+        // 读取面具状态
+        IdentityType identity = (IdentityType)0;
+        IList<EmotionType> emotions = null;
+
+        if (MaskManager.Instance != null)
+        {
+            identity = MaskManager.Instance.CurrentIdentity;
+            emotions = MaskManager.Instance.CurrentEmotions;
+        }
+
+        bool correct = dialogueAsset.IsCorrect(useIndex, identity, emotions);
+        Debug.Log($"[MaskStage] key={progressKey}, stage={useIndex}, correct={correct}, identity={identity}, emotions={FormatEmotions(emotions)}");
 
         if (correct)
         {
@@ -101,15 +78,14 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             {
                 dialogueManager.Play(stage.correctDialogue, () =>
                 {
-                    GrantStageRewards(stage, useIndex);   // 先发奖励（在对话结束后）
-                    SaveStage(stageIndex + 1);            //再推进Stage
+                    GrantStageRewards(stage, useIndex);
+                    MaskStageProgressRuntime.SetStage(progressKey, stageIndex + 1);
                 });
             }
             else
             {
-                // 没填正确对话也推进（但仍可发奖励）
                 GrantStageRewards(stage, useIndex);
-                SaveStage(stageIndex + 1);
+                MaskStageProgressRuntime.SetStage(progressKey, stageIndex + 1);
             }
         }
         else
@@ -121,29 +97,6 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
         }
     }
 
-    private void PlayFallback()
-    {
-        if (dialogueManager == null) return;
-        if (IsValid(fallbackDialogue))
-            dialogueManager.Play(fallbackDialogue);
-    }
-
-    private bool IsValid(DialogueSequence seq)
-    {
-        return seq != null && seq.lines != null && seq.lines.Count > 0;
-    }
-
-    private int LoadStage()
-    {
-        return PlayerPrefs.GetInt(progressKey, 0);
-    }
-
-    private void SaveStage(int newIndex)
-    {
-        PlayerPrefs.SetInt(progressKey, newIndex);
-        PlayerPrefs.Save();
-    }
-
     private void GrantStageRewards(MaskStage stage, int stageIndex)
     {
         if (stage == null) return;
@@ -151,13 +104,11 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
 
         if (PlayerMaskInventoryController.Instance == null)
         {
-            Debug.LogWarning("PlayerMaskInventoryController is missing! Cannot grant fragments.");
+            Debug.LogWarning("PlayerMaskInventoryController missing! Cannot grant fragments.");
             return;
         }
 
-        // 防止重复发奖（尤其最后一关 clampAtLastStage=true 时会重复进入同一stage）
-        string rewardKey = $"{progressKey}_reward_{stageIndex}";
-        if (stage.grantOnce && PlayerPrefs.GetInt(rewardKey, 0) == 1)
+        if (stage.grantOnce && MaskStageProgressRuntime.HasGrantedReward(progressKey, stageIndex))
             return;
 
         int count = 0;
@@ -168,13 +119,24 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             count++;
         }
 
-        Debug.Log($"[StageReward] Granted {count} fragments for stage {stageIndex}.");
+        Debug.Log($"[StageReward] key={progressKey}, stage={stageIndex}, granted={count}");
 
         if (stage.grantOnce)
-        {
-            PlayerPrefs.SetInt(rewardKey, 1);
-            PlayerPrefs.Save();
-        }
+            MaskStageProgressRuntime.MarkRewardGranted(progressKey, stageIndex);
     }
 
+    private void PlayFallback()
+    {
+        if (dialogueManager == null) return;
+        if (IsValid(fallbackDialogue))
+            dialogueManager.Play(fallbackDialogue);
+    }
+
+    private bool IsValid(DialogueSequence seq) => seq != null && seq.lines != null && seq.lines.Count > 0;
+
+    private string FormatEmotions(IList<EmotionType> list)
+    {
+        if (list == null || list.Count == 0) return "(none)";
+        return string.Join(",", list);
+    }
 }
