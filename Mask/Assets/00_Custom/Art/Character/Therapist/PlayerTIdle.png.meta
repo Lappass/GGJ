@@ -76,7 +76,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -90,7 +90,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,12 +142,12 @@ TextureImporter:
       name: PlayerTIdle_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 83
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,12 +164,12 @@ TextureImporter:
       name: PlayerTIdle_1
       rect:
         serializedVersion: 2
-        x: 70
-        y: 83
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -186,12 +186,12 @@ TextureImporter:
       name: PlayerTIdle_2
       rect:
         serializedVersion: 2
-        x: 134
-        y: 82
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 128
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -208,12 +208,12 @@ TextureImporter:
       name: PlayerTIdle_3
       rect:
         serializedVersion: 2
-        x: 198
-        y: 84
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -230,12 +230,12 @@ TextureImporter:
       name: PlayerTIdle_4
       rect:
         serializedVersion: 2
-        x: 262
-        y: 84
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 256
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -248,209 +248,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_5
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 18
-        width: 34
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: de01eaeb93706d3e0800000000000000
-      internalID: -2029426637490220819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_6
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 0
-        width: 24
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 41cfef62cd9f1a3c0800000000000000
-      internalID: -4349921041120822252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_7
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 18
-        width: 34
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 973eeaa53761d0790800000000000000
-      internalID: -7562363514586733703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_8
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 0
-        width: 24
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e8f5407c4753678e0800000000000000
-      internalID: -1696109433986982002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_9
-      rect:
-        serializedVersion: 2
-        x: 136
-        y: 0
-        width: 38
-        height: 83
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1bed0abd44d4537c0800000000000000
-      internalID: -4092279728258359631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_10
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 18
-        width: 34
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 89ab69b11bac66df0800000000000000
-      internalID: -187239472468411752
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_11
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 0
-        width: 27
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b1077dc5683f8b670800000000000000
-      internalID: 8554855250599047195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_12
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 18
-        width: 34
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 77fbf7555559dcd70800000000000000
-      internalID: 9065065818705870711
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTIdle_13
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 0
-        width: 27
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db23d0c85cfb53150800000000000000
-      internalID: 5851794146016965309
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9bf4b46d8b380cb46808b47fe2aa7cc3
     internalID: 0
     vertices: []
     indices: 
@@ -462,18 +264,9 @@ TextureImporter:
     nameFileIdTable:
       PlayerTIdle_0: -7628377225538409344
       PlayerTIdle_1: -8536428988234549240
-      PlayerTIdle_10: -187239472468411752
-      PlayerTIdle_11: 8554855250599047195
-      PlayerTIdle_12: 9065065818705870711
-      PlayerTIdle_13: 5851794146016965309
       PlayerTIdle_2: -7563177873886478630
       PlayerTIdle_3: -3820720062133643158
       PlayerTIdle_4: -4933982591469993284
-      PlayerTIdle_5: -2029426637490220819
-      PlayerTIdle_6: -4349921041120822252
-      PlayerTIdle_7: -7562363514586733703
-      PlayerTIdle_8: -1696109433986982002
-      PlayerTIdle_9: -4092279728258359631
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

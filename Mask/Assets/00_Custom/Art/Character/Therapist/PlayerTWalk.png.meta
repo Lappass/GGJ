@@ -76,7 +76,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -90,7 +90,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,12 +142,12 @@ TextureImporter:
       name: PlayerTWalk_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 83
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,12 +164,12 @@ TextureImporter:
       name: PlayerTWalk_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 18
-        width: 34
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -186,12 +186,12 @@ TextureImporter:
       name: PlayerTWalk_2
       rect:
         serializedVersion: 2
-        x: 68
-        y: 82
-        width: 53
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 128
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -208,12 +208,12 @@ TextureImporter:
       name: PlayerTWalk_3
       rect:
         serializedVersion: 2
-        x: 73
-        y: 20
-        width: 52
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 0
+        width: 64
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -226,231 +226,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_4
-      rect:
-        serializedVersion: 2
-        x: 134
-        y: 82
-        width: 52
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 83735139b08b0b120800000000000000
-      internalID: 2427642559004489528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_5
-      rect:
-        serializedVersion: 2
-        x: 137
-        y: 18
-        width: 36
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4bcea41c5e3d8d3b0800000000000000
-      internalID: -5487403162207064908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_6
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 83
-        width: 52
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0b2eba544eff87f20800000000000000
-      internalID: 3420765272874410672
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_7
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 20
-        width: 53
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 045490c37fac23590800000000000000
-      internalID: -7695865650009782976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_8
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 0
-        width: 24
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 698669c66d85f0b30800000000000000
-      internalID: 4255717850856450198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_9
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 0
-        width: 20
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2834d593e9348c340800000000000000
-      internalID: 4884228142729610114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_10
-      rect:
-        serializedVersion: 2
-        x: 93
-        y: 0
-        width: 18
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 052bf2dff4f119820800000000000000
-      internalID: 2923152061550801488
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_11
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 0
-        width: 28
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1db609f78a99f21a0800000000000000
-      internalID: -6832073160724026415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_12
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 0
-        width: 20
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbdbe49333832ce90800000000000000
-      internalID: -7006976277579121217
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerTWalk_13
-      rect:
-        serializedVersion: 2
-        x: 221
-        y: 0
-        width: 18
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e04848f24fd568aa0800000000000000
-      internalID: -6159132137031957490
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e46d79f69a103bd49b5ba96d6db5c61f
     internalID: 0
     vertices: []
     indices: 
@@ -462,18 +242,8 @@ TextureImporter:
     nameFileIdTable:
       PlayerTWalk_0: 5001901000125553227
       PlayerTWalk_1: 7103489548412225646
-      PlayerTWalk_10: 2923152061550801488
-      PlayerTWalk_11: -6832073160724026415
-      PlayerTWalk_12: -7006976277579121217
-      PlayerTWalk_13: -6159132137031957490
       PlayerTWalk_2: 4019279251673110639
       PlayerTWalk_3: -9094441479249195078
-      PlayerTWalk_4: 2427642559004489528
-      PlayerTWalk_5: -5487403162207064908
-      PlayerTWalk_6: 3420765272874410672
-      PlayerTWalk_7: -7695865650009782976
-      PlayerTWalk_8: 4255717850856450198
-      PlayerTWalk_9: 4884228142729610114
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
