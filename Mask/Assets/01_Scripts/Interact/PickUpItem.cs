@@ -37,7 +37,8 @@ public class PickupItem : Interactable
     public UnityEngine.Events.UnityEvent onPickedUp;
 
     private bool _picked = false;
-    public override bool CanInteract => !_picked;
+    private bool _prerequisitesMet = true;
+    public override bool CanInteract => !_picked && _prerequisitesMet;
 
     private void Start()
     {
@@ -58,75 +59,44 @@ public class PickupItem : Interactable
             }
         }
 
-        if (enableGlowHint)
+        // Always check conditions on start
+        if (PlayerMaskInventoryController.Instance != null)
         {
-            // Initial state
-            if (glowVisual != null) glowVisual.SetActive(false);
-
-            if (PlayerMaskInventoryController.Instance != null)
-            {
-                // Changed to listen for Inventory Updates (unlocks), not Mask State (equipped)
-                PlayerMaskInventoryController.Instance.OnInventoryUpdated += CheckGlow;
-                CheckGlow();
-            }
+            PlayerMaskInventoryController.Instance.OnMaskStateChanged += CheckConditions;
+            CheckConditions();
         }
+        
+        // Initial state for glow
+        if (enableGlowHint && glowVisual != null) glowVisual.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        if (enableGlowHint && PlayerMaskInventoryController.Instance != null)
+        if (PlayerMaskInventoryController.Instance != null)
         {
-            PlayerMaskInventoryController.Instance.OnInventoryUpdated -= CheckGlow;
+            PlayerMaskInventoryController.Instance.OnMaskStateChanged -= CheckConditions;
         }
     }
 
-    private void CheckGlow()
+    private void CheckConditions()
     {
-        if (!enableGlowHint || glowVisual == null) return;
         if (PlayerMaskInventoryController.Instance == null) return;
 
-        var unlockedFragments = PlayerMaskInventoryController.Instance.GetUnlockedFragments();
-        
+        // Check Identity
         bool identityMatch = true;
         if (checkIdentity)
         {
-            identityMatch = false; 
-            // Check if any unlocked fragment provides this identity
-            foreach (var fragment in unlockedFragments)
-            {
-                if (fragment == null) continue;
-                var ui = fragment.GetComponent<DraggableUI>();
-                if (ui != null && ui.attributeData != null)
-                {
-                    if (ui.attributeData.type == AttributeType.Identity && 
-                        ui.attributeData.identityValue == requiredIdentity)
-                    {
-                        identityMatch = true;
-                        break;
-                    }
-                }
-            }
+            identityMatch = PlayerMaskInventoryController.Instance.CurrentIdentity == requiredIdentity;
         }
 
+        // Check Emotions
         bool emotionMatch = true;
         if (requiredEmotions != null && requiredEmotions.Count > 0)
         {
-            // Collect all unlocked emotion types
-            HashSet<EmotionType> unlockedEmotions = new HashSet<EmotionType>();
-            foreach (var fragment in unlockedFragments)
-            {
-                if (fragment == null) continue;
-                var ui = fragment.GetComponent<DraggableUI>();
-                if (ui != null && ui.attributeData != null && ui.attributeData.type == AttributeType.Emotion)
-                {
-                    unlockedEmotions.Add(ui.attributeData.emotionValue);
-                }
-            }
-
-            // Verify we have all required emotions
+            // Verify the current mask has all required emotions
             foreach (var reqEmo in requiredEmotions)
             {
-                if (!unlockedEmotions.Contains(reqEmo))
+                if (!PlayerMaskInventoryController.Instance.CurrentEmotions.Contains(reqEmo))
                 {
                     emotionMatch = false;
                     break;
@@ -134,17 +104,23 @@ public class PickupItem : Interactable
             }
         }
 
-        bool shouldGlow = identityMatch && emotionMatch;
-        glowVisual.SetActive(shouldGlow);
+        _prerequisitesMet = identityMatch && emotionMatch;
 
-        if (shouldGlow)
+        // Update Glow Visual
+        if (enableGlowHint && glowVisual != null)
         {
-            var sr = glowVisual.GetComponent<SpriteRenderer>();
-            if (sr != null)
+            bool shouldGlow = _prerequisitesMet;
+            glowVisual.SetActive(shouldGlow);
+
+            if (shouldGlow)
             {
-                Color c = sr.color;
-                c.a = glowIntensity;
-                sr.color = c;
+                var sr = glowVisual.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = glowIntensity;
+                    sr.color = c;
+                }
             }
         }
     }
@@ -152,6 +128,8 @@ public class PickupItem : Interactable
     public override void Interact(PlayerInteractor interactor)
     {
         if (_picked) return;
+        if (!_prerequisitesMet) return; // Enforce conditions check
+
         _picked = true;
 
         // Reward logic
