@@ -3410,6 +3410,7 @@ GameObject:
   - component: {fileID: 1651787066}
   - component: {fileID: 1651787067}
   - component: {fileID: 1651787068}
+  - component: {fileID: 1651787069}
   m_Layer: 3
   m_Name: 'Player '
   m_TagString: Player
@@ -3590,7 +3591,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   promptRoot: {fileID: 1040807257}
-  dialogueManager: {fileID: 0}
+  dialogueManager: {fileID: 1191810084}
 --- !u!114 &1651787068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3608,6 +3609,25 @@ MonoBehaviour:
   - {fileID: 5104636081324450170, guid: 40d6650faa351634580537bac02ef7c1, type: 3}
   - {fileID: 3760661679761297241, guid: 33d6b7a5b3e47864c82ceca145e72b04, type: 3}
   - {fileID: 365179775200999441, guid: 2ef220d860d4cb143bb3782eb35cf426, type: 3}
+--- !u!114 &1651787069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651787060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dea83678fe08a4e884666d9ae978ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1481453773}
+  defaultOverride: {fileID: 22100000, guid: 807edfe7c6a7aaf499088e87ebef1093, type: 2}
+  overrides:
+  - identity: 0
+    overrideController: {fileID: 22100000, guid: 3ecc6475087bdef47bfddcba0d0cb90a, type: 2}
+  - identity: 2
+    overrideController: {fileID: 22100000, guid: 097f67203c19ae14597f191462969eea, type: 2}
 --- !u!1 &1781410734
 GameObject:
   m_ObjectHideFlags: 0

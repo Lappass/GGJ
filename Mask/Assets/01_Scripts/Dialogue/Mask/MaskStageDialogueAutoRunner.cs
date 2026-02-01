@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class MaskStageDialogueAutoRunner : MonoBehaviour
@@ -8,20 +8,20 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
     public MaskStageDialogueAsset dialogueAsset;
 
     [Header("Progress Key")]
-    [Tooltip("ÓÃÓÚ±£´æ/¶ÁÈ¡Stage½ø¶ÈµÄKey¡£²»Í¬³¡¾°/²»Í¬NPCÒªÓÃ²»Í¬Key")]
+    [Tooltip("ç”¨äºä¿å­˜/è¯»å–Stageè¿›åº¦çš„Keyã€‚ä¸åŒåœºæ™¯/ä¸åŒNPCè¦ç”¨ä¸åŒKey")]
     public string progressKey = "MaskStage_Default";
 
     [Header("Options")]
-    [Tooltip("½øÈë³¡¾°ºó×Ô¶¯²¥·ÅÒ»´Î")]
+    [Tooltip("è¿›å…¥åœºæ™¯åè‡ªåŠ¨æ’­æ”¾ä¸€æ¬¡")]
     public bool playOnStart = true;
 
-    [Tooltip("Èç¹û¶Ô»°ÕıÔÚ²¥·Å£¬ÊÇ·ñµÈ´ı²¥·Å½áÊøºóÔÙ´¥·¢±¾´Î×Ô¶¯²¥·Å")]
+    [Tooltip("å¦‚æœå¯¹è¯æ­£åœ¨æ’­æ”¾ï¼Œæ˜¯å¦ç­‰å¾…æ’­æ”¾ç»“æŸåå†è§¦å‘æœ¬æ¬¡è‡ªåŠ¨æ’­æ”¾")]
     public bool waitIfDialoguePlaying = true;
 
-    [Tooltip("µ½×îºóÒ»¹ØºóÊÇ·ñÍ£ÔÚ×îºóÒ»¹Ø£¨true=ÖØ¸´×îºóÒ»¹Ø£»false=³¬¹ıºó²»²¥£©")]
+    [Tooltip("åˆ°æœ€åä¸€å…³åæ˜¯å¦åœåœ¨æœ€åä¸€å…³ï¼ˆtrue=é‡å¤æœ€åä¸€å…³ï¼›false=è¶…è¿‡åä¸æ’­ï¼‰")]
     public bool clampAtLastStage = true;
 
-    [Tooltip("ÑÓ³Ù¶àÉÙÃëºó´¥·¢£¨¸ø³¡¾°µ­Èë/Íæ¼Ò×´Ì¬³õÊ¼»¯ÁôÊ±¼ä£©")]
+    [Tooltip("å»¶è¿Ÿå¤šå°‘ç§’åè§¦å‘ï¼ˆç»™åœºæ™¯æ·¡å…¥/ç©å®¶çŠ¶æ€åˆå§‹åŒ–ç•™æ—¶é—´ï¼‰")]
     public float startDelay = 0.1f;
 
     [Header("Optional Fallback")]
@@ -48,9 +48,9 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
 
         if (waitIfDialoguePlaying && dialogueManager.IsPlaying)
         {
-            // ¼òµ¥µÈÒ»Ö¡ÔÙÊÔ£»²»Ğ´Ğ­³ÌÒ²ĞĞ
+            // ç®€å•ç­‰ä¸€å¸§å†è¯•ï¼›ä¸å†™åç¨‹ä¹Ÿè¡Œ
             Invoke(nameof(TryAutoPlay), 0.1f);
-            _hasAutoPlayedThisScene = false; // ÔÊĞíÖØÊÔ
+            _hasAutoPlayedThisScene = false; // å…è®¸é‡è¯•
             return;
         }
 
@@ -64,7 +64,7 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
 
         if (!clampAtLastStage && stageIndex >= dialogueAsset.stages.Count)
         {
-            // ³¬¹ı×îºóÒ»¹ØÇÒ²»clamp£º²»²¥
+            // è¶…è¿‡æœ€åä¸€å…³ä¸”ä¸clampï¼šä¸æ’­
             return;
         }
 
@@ -76,7 +76,7 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             if (useIndex >= dialogueAsset.stages.Count) useIndex = dialogueAsset.stages.Count - 1;
         }
 
-        // Íæ¼ÒÃæ¾ß×´Ì¬£¨´Ó MaskManager ¶ÁÈ¡£©
+        // ç©å®¶é¢å…·çŠ¶æ€ï¼ˆä» MaskManager è¯»å–ï¼‰
         IdentityType playerIdentity = (IdentityType)0;
         IList<EmotionType> playerEmotions = null;
 
@@ -101,18 +101,19 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
             {
                 dialogueManager.Play(stage.correctDialogue, () =>
                 {
-                    SaveStage(stageIndex + 1);
+                    GrantStageRewards(stage, useIndex);   // å…ˆå‘å¥–åŠ±ï¼ˆåœ¨å¯¹è¯ç»“æŸåï¼‰
+                    SaveStage(stageIndex + 1);            //å†æ¨è¿›Stage
                 });
             }
             else
             {
-                // Ã»ÌîÕıÈ·¶Ô»°Ò²ÍÆ½ø
+                // æ²¡å¡«æ­£ç¡®å¯¹è¯ä¹Ÿæ¨è¿›ï¼ˆä½†ä»å¯å‘å¥–åŠ±ï¼‰
+                GrantStageRewards(stage, useIndex);
                 SaveStage(stageIndex + 1);
             }
         }
         else
         {
-            // ´íÎó£º²»ÍÆ½ø£¬·´¸´ÁôÔÚµ±Ç°stage
             if (IsValid(stage.wrongDialogue))
                 dialogueManager.Play(stage.wrongDialogue);
             else
@@ -142,4 +143,38 @@ public class MaskStageDialogueAutoRunner : MonoBehaviour
         PlayerPrefs.SetInt(progressKey, newIndex);
         PlayerPrefs.Save();
     }
+
+    private void GrantStageRewards(MaskStage stage, int stageIndex)
+    {
+        if (stage == null) return;
+        if (stage.fragmentsToGrant == null || stage.fragmentsToGrant.Count == 0) return;
+
+        if (PlayerMaskInventoryController.Instance == null)
+        {
+            Debug.LogWarning("PlayerMaskInventoryController is missing! Cannot grant fragments.");
+            return;
+        }
+
+        // é˜²æ­¢é‡å¤å‘å¥–ï¼ˆå°¤å…¶æœ€åä¸€å…³ clampAtLastStage=true æ—¶ä¼šé‡å¤è¿›å…¥åŒä¸€stageï¼‰
+        string rewardKey = $"{progressKey}_reward_{stageIndex}";
+        if (stage.grantOnce && PlayerPrefs.GetInt(rewardKey, 0) == 1)
+            return;
+
+        int count = 0;
+        foreach (var prefab in stage.fragmentsToGrant)
+        {
+            if (prefab == null) continue;
+            PlayerMaskInventoryController.Instance.UnlockFragment(prefab);
+            count++;
+        }
+
+        Debug.Log($"[StageReward] Granted {count} fragments for stage {stageIndex}.");
+
+        if (stage.grantOnce)
+        {
+            PlayerPrefs.SetInt(rewardKey, 1);
+            PlayerPrefs.Save();
+        }
+    }
+
 }

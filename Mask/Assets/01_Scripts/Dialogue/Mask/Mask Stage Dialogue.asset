@@ -31,3 +31,5 @@ MonoBehaviour:
         content: '6789
 
 '
+    fragmentsToGrant: []
+    grantOnce: 1

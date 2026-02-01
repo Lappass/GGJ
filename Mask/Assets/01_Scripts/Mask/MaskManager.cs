@@ -1,11 +1,12 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 public class MaskManager : MonoBehaviour
 {
     public static MaskManager Instance { get; private set; }
-
+    public event Action<IdentityType, IReadOnlyList<EmotionType>> OnMaskStateChanged;
     public IdentityType CurrentIdentity { get; private set; } = (IdentityType)0;
     public System.Collections.Generic.List<EmotionType> CurrentEmotions { get; private set; } = new System.Collections.Generic.List<EmotionType>();
 
@@ -97,6 +98,7 @@ public class MaskManager : MonoBehaviour
                     identityCounts[data.identityValue]++;
                 }
             }
+            OnMaskStateChanged?.Invoke(CurrentIdentity, CurrentEmotions);
         }
 
         // 2. Hide text if no items

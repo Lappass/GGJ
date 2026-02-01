@@ -19,6 +19,13 @@ public class MaskStage
     [Header("Dialogue - Wrong (stay in same stage)")]
     public DialogueSequence wrongDialogue;
 
+    [Header("Rewards (Grant after Correct Dialogue)")]
+    [Tooltip("正确对话播完后解锁的面具碎片 Prefab 列表")]
+    public List<GameObject> fragmentsToGrant = new List<GameObject>();
+
+    [Tooltip("是否只发放一次（防止最后一关重复、或手动重置导致重复发奖）")]
+    public bool grantOnce = true;
+
     public void GetAnswerEmotionCounts(Dictionary<EmotionType, int> dict)
     {
         dict.Clear();
@@ -51,7 +58,6 @@ public class MaskStageDialogueAsset : ScriptableObject
 
         if (!stage.identity.Equals(playerIdentity)) return false;
 
-        // build counts
         var stageCounts = new Dictionary<EmotionType, int>();
         var playerCounts = new Dictionary<EmotionType, int>();
 
