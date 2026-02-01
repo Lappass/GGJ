@@ -8,6 +8,7 @@ public enum AttributeType
 }
 
 // Define specific values for Emotions and Identities
+//a
 public enum EmotionType
 {
     None,
