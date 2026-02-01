@@ -15,6 +15,6 @@ MonoBehaviour:
   type: 1
   emotionValue: 0
   identityValue: 0
-  icon: {fileID: 0}
+  icon: {fileID: 8568922877720504809, guid: 1874eadd396cf414d8bb0c6bd2002bb6, type: 3}
   defaultPosition: 0
   description: 
