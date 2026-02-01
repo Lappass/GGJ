@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 323602003}
   - component: {fileID: 323602002}
   - component: {fileID: 323602001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3662,7 +3662,7 @@ GameObject:
   - component: {fileID: 1716073290}
   - component: {fileID: 1716073289}
   - component: {fileID: 1716073288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Omit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

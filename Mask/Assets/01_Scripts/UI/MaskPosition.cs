@@ -9,3 +9,5 @@ public enum MaskPosition
     None // For items that don't fit anywhere or generic slots
 }
 
+
+

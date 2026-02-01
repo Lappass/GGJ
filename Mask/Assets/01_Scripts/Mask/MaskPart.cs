@@ -120,3 +120,5 @@ public class MaskPart : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
 }
 
+
+
