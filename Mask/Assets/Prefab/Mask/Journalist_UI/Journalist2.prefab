@@ -91,6 +91,7 @@ MonoBehaviour:
   parentBeforeDrag: {fileID: 0}
   homeParent: {fileID: 0}
   returnToStartPosOnRelease: 0
-  positionType: 2
+  positionType: 3
   attributeData: {fileID: 11400000, guid: bf9860e065da10144a902f66a1fb8b00, type: 2}
   isSpawnedFromInventory: 0
+  originalPrefab: {fileID: 0}
