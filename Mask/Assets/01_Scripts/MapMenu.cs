@@ -7,9 +7,9 @@ public class MapMenu : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private GameObject mapPanel;
-    [SerializeField] private GameObject scene1ImageObj;
-    [SerializeField] private GameObject scene2ImageObj;
-    [SerializeField] private GameObject scene3ImageObj;
+    [SerializeField] private GameObject scene1ShadowObj;
+    [SerializeField] private GameObject scene2ShadowObj;
+    [SerializeField] private GameObject scene3ShadowObj;
 
     [Header("Scene Settings")]
     [SerializeField] private string scene1Name = "CrimeScene";
@@ -27,9 +27,9 @@ public class MapMenu : MonoBehaviour
         {
             mapPanel.SetActive(false);
         }
-        AddClickListener(scene1ImageObj, scene1Name, scene1SpawnPoint);
-        AddClickListener(scene2ImageObj, scene2Name, scene2SpawnPoint);
-        AddClickListener(scene3ImageObj, scene3Name, scene3SpawnPoint);
+        SetupMapLocation(scene1ShadowObj, scene1Name, scene1SpawnPoint);
+        SetupMapLocation(scene2ShadowObj, scene2Name, scene2SpawnPoint);
+        SetupMapLocation(scene3ShadowObj, scene3Name, scene3SpawnPoint);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
@@ -61,19 +61,55 @@ public class MapMenu : MonoBehaviour
             ToggleMap();
         }
     }
-    private void AddClickListener(GameObject obj, string sceneName, string spawnPointName)
+
+    private void SetupMapLocation(GameObject shadowObj, string sceneName, string spawnPointName)
     {
-        if (obj == null) return;
-        EventTrigger trigger = obj.GetComponent<EventTrigger>();
+        if (shadowObj == null) return;
+
+        // Ensure object is active so it can receive events
+        shadowObj.SetActive(true);
+
+        // Set initial alpha to 0 (invisible but clickable)
+        SetImageAlpha(shadowObj, 0f);
+
+        EventTrigger trigger = shadowObj.GetComponent<EventTrigger>();
         if (trigger == null)
         {
-            trigger = obj.AddComponent<EventTrigger>();
+            trigger = shadowObj.AddComponent<EventTrigger>();
         }
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerClick; 
-        entry.callback.AddListener((data) => { LoadScene(sceneName, spawnPointName); });
 
-        trigger.triggers.Add(entry);
+        // Click
+        EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+        clickEntry.eventID = EventTriggerType.PointerClick; 
+        clickEntry.callback.AddListener((data) => { LoadScene(sceneName, spawnPointName); });
+        trigger.triggers.Add(clickEntry);
+
+        // Pointer Enter (Hover Start -> Visible)
+        EventTrigger.Entry enterEntry = new EventTrigger.Entry();
+        enterEntry.eventID = EventTriggerType.PointerEnter;
+        enterEntry.callback.AddListener((data) => { 
+            SetImageAlpha(shadowObj, 1f);
+        });
+        trigger.triggers.Add(enterEntry);
+
+        // Pointer Exit (Hover End -> Invisible)
+        EventTrigger.Entry exitEntry = new EventTrigger.Entry();
+        exitEntry.eventID = EventTriggerType.PointerExit;
+        exitEntry.callback.AddListener((data) => { 
+             SetImageAlpha(shadowObj, 0f);
+        });
+        trigger.triggers.Add(exitEntry);
+    }
+
+    private void SetImageAlpha(GameObject obj, float alpha)
+    {
+        Image img = obj.GetComponent<Image>();
+        if (img != null)
+        {
+            Color c = img.color;
+            c.a = alpha;
+            img.color = c;
+        }
     }
 
     private void ToggleMap()
@@ -82,6 +118,13 @@ public class MapMenu : MonoBehaviour
         if (mapPanel != null)
         {
             mapPanel.SetActive(isMapOpen);
+            if (isMapOpen)
+            {
+                // Reset all shadows to invisible when map is opened
+                if (scene1ShadowObj != null) SetImageAlpha(scene1ShadowObj, 0f);
+                if (scene2ShadowObj != null) SetImageAlpha(scene2ShadowObj, 0f);
+                if (scene3ShadowObj != null) SetImageAlpha(scene3ShadowObj, 0f);
+            }
         }
     }
 
