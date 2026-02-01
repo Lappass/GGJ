@@ -27,6 +27,8 @@ public class PickupItem : Interactable
     [Header("Glow Hint")]
     [SerializeField] private bool enableGlowHint = false;
     [SerializeField] private GameObject glowVisual;
+    [Tooltip("Extra object to show when prerequisites are met (e.g., hidden item revealed)")]
+    [SerializeField] private GameObject activeVisual; 
     [Range(0f, 1f)]
     [SerializeField] private float glowIntensity = 1f;
     [SerializeField] private bool checkIdentity = false;
@@ -68,6 +70,7 @@ public class PickupItem : Interactable
         
         // Initial state for glow
         if (enableGlowHint && glowVisual != null) glowVisual.SetActive(false);
+        if (activeVisual != null) activeVisual.SetActive(false);
     }
 
     private void OnDestroy()
@@ -105,6 +108,12 @@ public class PickupItem : Interactable
         }
 
         _prerequisitesMet = identityMatch && emotionMatch;
+
+        // Update active visual (show object if prerequisites met)
+        if (activeVisual != null)
+        {
+            activeVisual.SetActive(_prerequisitesMet);
+        }
 
         // Update Glow Visual
         if (enableGlowHint && glowVisual != null)
