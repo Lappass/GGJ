@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 616f9ddec7c05fe4a8a0e40bdbd764a1, type: 3}
-  m_Name: Angry
+  m_Name: Angry 1
   m_EditorClassIdentifier: 
   type: 0
   emotionValue: 3
   identityValue: 0
+  icon: {fileID: -4543161473179340828, guid: 68b57e503b693b449b49039549e76adb, type: 3}
+  defaultPosition: 0
   description: 

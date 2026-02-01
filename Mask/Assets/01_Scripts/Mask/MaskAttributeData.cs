@@ -15,6 +15,7 @@ public enum EmotionType
     Sad,
     Angry,
     Fearful,
+    Understanding,
 }
 
 public enum IdentityType

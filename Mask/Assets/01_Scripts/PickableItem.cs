@@ -7,6 +7,7 @@ public class PickableItem : MonoBehaviour
     [SerializeField] private string objectID = "Item_01";
     [Header("Reward")]
     [Tooltip("If set, picking up this item will unlock this mask fragment PREFAB.")]
+    [SerializeField] private System.Collections.Generic.List<GameObject> fragmentRewards;
     [SerializeField] private GameObject fragmentReward;
 
     [SerializeField] private KeyCode interactKey = KeyCode.E;
@@ -14,6 +15,9 @@ public class PickableItem : MonoBehaviour
     [Header("Behavior")]
     [Tooltip("Should the object be destroyed immediately when picked up? Uncheck this if you want to play dialogue first.")]
     [SerializeField] private bool destroyOnPickup = true;
+
+    [Header("Events")]
+    public UnityEngine.Events.UnityEvent onPickedUp;
 
     private bool isPlayerInRange = false;
 
@@ -42,15 +46,26 @@ public class PickableItem : MonoBehaviour
         Debug.Log($"捡起了物品: {gameObject.name}");
         
         // Unlock Fragment Reward
-        if (fragmentReward != null && PlayerMaskInventoryController.Instance != null)
+        if (PlayerMaskInventoryController.Instance != null)
         {
-            PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+             if (fragmentReward != null)
+                 PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+                 
+             if (fragmentRewards != null)
+             {
+                 foreach(var f in fragmentRewards)
+                 {
+                     if (f != null) PlayerMaskInventoryController.Instance.UnlockFragment(f);
+                 }
+             }
         }
 
         if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.SetState(objectID, true);
         }
+
+        onPickedUp?.Invoke();
 
         // 捡起后隐藏提示
         if (InteractionManager.Instance != null)

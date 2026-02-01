@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Refs")]
-    [SerializeField] private CanvasGroup rootCanvasGroup;   // DialogueRoot ÉÏµÄ CanvasGroup
+    [SerializeField] private CanvasGroup rootCanvasGroup;   // DialogueRoot ï¿½Ïµï¿½ CanvasGroup
     [SerializeField] private TMP_Text speakerText;          // NameText (TMP)
     [SerializeField] private TMP_Text contentText;          // BodyText (TMP)
     [SerializeField] private GameObject continueIndicator;  // Triangle
@@ -15,14 +15,16 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private int mouseButton = 0;           // 0 = Left Mouse
 
     [Header("Behavior")]
-    [Tooltip("Ã¿¾ä³öÏÖºó£¬¶àÉÙÃëºó×Ô¶¯ÏÔÊ¾Ð¡Èý½Ç")]
+    [Tooltip("Ã¿ï¿½ï¿½ï¿½ï¿½Öºó£¬¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ê¾Ð¡ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float autoShowIndicatorAfterSeconds = 5f;
-    [Tooltip("ÊÇ·ñÊ¹ÓÃ Unscaled Time£¨ÔÝÍ£/Âý¶¯×÷Ê±ÈÔÕý³£¼ÆÊ±£©")]
+    [Tooltip("ï¿½Ç·ï¿½Ê¹ï¿½ï¿½ Unscaled Timeï¿½ï¿½ï¿½ï¿½Í£/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")]
     [SerializeField] private bool useUnscaledTime = true;
 
     [Header("Events (Optional)")]
     public UnityEvent onDialogueStarted;
     public UnityEvent onDialogueFinished;
+
+    private System.Action _onCompleteCallback;
 
     public bool IsPlaying => _active;
 
@@ -44,7 +46,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (!_active) return;
 
-        // ¼ÆÊ±£ºÓÃÓÚ 5 Ãëºó×Ô¶¯ÏÔÊ¾Èý½Ç
+        // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
         if (_state == LineState.WaitingToRevealIndicator)
         {
             float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
@@ -54,21 +56,21 @@ public class DialogueManager : MonoBehaviour
                 RevealIndicator();
         }
 
-        // ÊäÈë£º×ó¼ü»ò¿Õ¸ñ
+        // ï¿½ï¿½ï¿½ë£ºï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½
         if (Input.GetMouseButtonDown(mouseButton) || Input.GetKeyDown(advanceKey))
             HandleAdvanceInput();
     }
 
     private void HandleAdvanceInput()
     {
-        // Ç° 5 ÃëÄÚ£ºµÚÒ»´Îµã»÷Ö»»½³öÈý½Ç£¬²»ÍÆ½ø
+        // Ç° 5 ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ò»ï¿½Îµï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Æ½ï¿½
         if (_state == LineState.WaitingToRevealIndicator)
         {
             RevealIndicator();
             return;
         }
 
-        // Èý½Ç³öÏÖºó£ºµã»÷ÍÆ½øÏÂÒ»¾ä
+        // ï¿½ï¿½ï¿½Ç³ï¿½ï¿½Öºó£ºµï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
         if (_state == LineState.ReadyToAdvance)
             ShowNextLine();
     }
@@ -101,22 +103,29 @@ public class DialogueManager : MonoBehaviour
         if (speakerText != null) speakerText.text = line.speaker;
         if (contentText != null) contentText.text = line.content;
 
-        // ÐÂÒ»¾ä³öÏÖ£ºÒþ²ØÈý½Ç£¬ÖØÐÂ¼ÆÊ±£¬»Øµ½¡°µÈ´ý»½³öÈý½Ç¡±×´Ì¬
+        // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Ê±ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½×´Ì¬
         if (continueIndicator != null) continueIndicator.SetActive(false);
         _timer = 0f;
         _state = LineState.WaitingToRevealIndicator;
     }
 
-    // Ö»±£ÁôÕâ¸ö Play£º²»ÔÙÖ§³Ö¡°ÔÊÐí/²»ÔÊÐíÌø¹ý¡±µÄ¿ª¹Ø
-    public void Play(DialogueSequence sequence)
+    // Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Playï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+    public void Play(DialogueSequence sequence, System.Action onComplete = null)
     {
+        Debug.Log($"[DialogueManager] Play requested. Sequence: {sequence}");
         if (sequence == null || sequence.lines == null || sequence.lines.Count == 0)
+        {
+            Debug.LogWarning("[DialogueManager] Empty sequence, stopping immediately.");
+            onComplete?.Invoke();
             return;
+        }
 
+        _onCompleteCallback = onComplete;
         _sequence = sequence;
         _index = -1;
         _active = true;
 
+        Debug.Log("[DialogueManager] Setting root visible and starting.");
         SetRootVisible(true);
 
         onDialogueStarted?.Invoke();
@@ -133,6 +142,8 @@ public class DialogueManager : MonoBehaviour
 
         HideAllImmediate();
         onDialogueFinished?.Invoke();
+        _onCompleteCallback?.Invoke();
+        _onCompleteCallback = null;
     }
 
     private void SetRootVisible(bool visible)
@@ -145,7 +156,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            // ¶µµ×£ºÃ»ÓÐ CanvasGroup Ê±ÓÃ SetActive ¿ØÖÆ£¨²»ÍÆ¼ö£¬µ«¿ÉÓÃ£©
+            // ï¿½ï¿½ï¿½×£ï¿½Ã»ï¿½ï¿½ CanvasGroup Ê±ï¿½ï¿½ SetActive ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½
             gameObject.SetActive(visible);
         }
     }

@@ -15,12 +15,15 @@ public class PickupItem : Interactable
 
     [Header("Reward")]
     [Tooltip("If set, unlocking this reward on pickup. If dialogue is shown, consider delaying via FragmentRewarder instead.")]
+    [SerializeField] private System.Collections.Generic.List<GameObject> fragmentRewards;
     [SerializeField] private GameObject fragmentReward;
     
     [Header("Dialogue On Pickup")]
     [SerializeField] private bool showDialogue = true;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private DialogueSequence dialogueSequence;
+    [Header("Events")]
+    public UnityEngine.Events.UnityEvent onPickedUp;
 
     private bool _picked = false;
     public override bool CanInteract => !_picked;
@@ -50,9 +53,18 @@ public class PickupItem : Interactable
         _picked = true;
 
         // Reward logic
-        if (fragmentReward != null && PlayerMaskInventoryController.Instance != null)
+        if (PlayerMaskInventoryController.Instance != null)
         {
-            PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+             if (fragmentReward != null)
+                 PlayerMaskInventoryController.Instance.UnlockFragment(fragmentReward);
+                 
+             if (fragmentRewards != null)
+             {
+                 foreach(var f in fragmentRewards)
+                 {
+                     if (f != null) PlayerMaskInventoryController.Instance.UnlockFragment(f);
+                 }
+             }
         }
 
         // Save state
@@ -60,6 +72,8 @@ public class PickupItem : Interactable
         {
             GameStateManager.Instance.SetState(objectID, true);
         }
+
+        onPickedUp?.Invoke();
 
         if (showDialogue && dialogueManager != null && dialogueSequence != null
             && dialogueSequence.lines != null && dialogueSequence.lines.Count > 0)
