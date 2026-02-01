@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46a8fc31f1cc3440bdce52bb525a030, type: 3}
+  m_Name: UnlockableDatabase
+  m_EditorClassIdentifier: 
+  entries:
+  - id: Detective
+    displayName: Detective
+    icon: {fileID: 3473480026902683945, guid: 9e0084bce2658044caa43dab33b7838a, type: 3}
+    type: 1
+    identityType: 1
+    emotionType: 0
+  - id: Dirty_Cop
+    displayName: Detective
+    icon: {fileID: 3473480026902683945, guid: 9e0084bce2658044caa43dab33b7838a, type: 3}
+    type: 1
+    identityType: 3
+    emotionType: 0
+  - id: Therapist
+    displayName: Therapist
+    icon: {fileID: -2074270232184912566, guid: 929867ee6da91064aa7a0d77f8638447, type: 3}
+    type: 1
+    identityType: 2
+    emotionType: 0
+  - id: Journalist
+    displayName: Journalist
+    icon: {fileID: 6458972799304192203, guid: 129dc8c6feafb294d849f0ec1c519bdd, type: 3}
+    type: 1
+    identityType: 0
+    emotionType: 0
+  - id: Anger
+    displayName: Anger
+    icon: {fileID: -7337927233599285411, guid: 7f99fef4dee39bd43802cf65ab8315bf, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 4
+  - id: Confident
+    displayName: Confident
+    icon: {fileID: 145224789600472403, guid: 89edffe78b920bf4299134aa46319a4e, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 1
+  - id: Imaginative
+    displayName: Imaginative
+    icon: {fileID: 5400043979846578918, guid: c141ad7da14d1d944b78ff68b1c2a225, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 3
+  - id: Pitiful
+    displayName: Pitiful
+    icon: {fileID: -5547413784735653570, guid: 9503ad67ec655bd4c9d8dff77e757e7f, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 5
+  - id: Understanding
+    displayName: Understanding
+    icon: {fileID: 590958381003373004, guid: 7b6e7d86f52edff4db72b12c3a1d4abb, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 6
+  - id: Reasoning
+    displayName: Reasoning
+    icon: {fileID: 4548469653610776901, guid: 15f32656900d1d64292a7cdc45091bcb, type: 3}
+    type: 0
+    identityType: 4
+    emotionType: 2

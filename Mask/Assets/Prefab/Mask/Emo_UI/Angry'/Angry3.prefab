@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 3760661679761297241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,3 +94,4 @@ MonoBehaviour:
   positionType: 0
   attributeData: {fileID: 11400000, guid: 58bd3a056f71df247a3da16294a4584b, type: 2}
   isSpawnedFromInventory: 0
+  originalPrefab: {fileID: 0}
