@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Camera))]
 public class CameraFollow: MonoBehaviour
@@ -18,17 +19,50 @@ public class CameraFollow: MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        FindBounds();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindBounds();
+    }
+
+    private void FindBounds()
+    {
+        GameObject boundsObj = GameObject.Find("CameraBounds");
+        if (boundsObj != null)
+        {
+            bounds = boundsObj.GetComponent<BoxCollider2D>();
+        }
+        else
+        {
+            bounds = null;
+        }
+    }
+
     private void LateUpdate()
     {
         if (target == null) return;
         Vector3 desired = target.position + offset;
         desired.z = offset.z;
 
-        //Æ½»¬
+        //Æ½ï¿½ï¿½
         if (smooth > 0f)
             desired = Vector3.Lerp(transform.position, desired, smooth * Time.deltaTime);
 
-        //±ß½ç
+        //ï¿½ß½ï¿½
         if (bounds != null && cam.orthographic)
         {
             Bounds b = bounds.bounds;
