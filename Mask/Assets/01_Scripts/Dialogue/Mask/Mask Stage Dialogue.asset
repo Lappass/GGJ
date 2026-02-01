@@ -14,22 +14,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - identity: 1
-    emotion1: 3
+    emotion1: 4
     emotion2: 0
     emotion3: 0
     correctDialogue:
       lines:
-      - speaker: Detective
-        content: 1234
-      - speaker: Sus
-        content: 5678
+      - speaker: Suspect
+        content: What are you implying
+      - speaker: Suspect
+        content: I have no business with all of this nonsense, I was asleep the whole
+          night.
+      - speaker: Suspect
+        content: "Of course your \u201Ccrime scene\u201D is modified, ask the press,
+          they can\u2019t even find the weapon."
     wrongDialogue:
       lines:
-      - speaker: Susp
-        content: 9999
-      - speaker: Detec
-        content: '6789
-
-'
+      - speaker: Suspect
+        content: No comments
+    fragmentsToGrant: []
+    grantOnce: 1
+  - identity: 0
+    emotion1: 6
+    emotion2: 3
+    emotion3: 0
+    correctDialogue:
+      lines:
+      - speaker: Suspect
+        content: "I don\u2019t know, I can\u2019t say for certain."
+      - speaker: Suspect
+        content: "It is possible though\u2026 The gap between the two windows is
+          close.\r\n"
+      - speaker: Suspect
+        content: And I did take sleeping pills that night so it is difficult to wake
+          me up even if someone entered my house.
+    wrongDialogue:
+      lines:
+      - speaker: Suspect
+        content: I already told you that I was asleep the whole night.
+    fragmentsToGrant: []
+    grantOnce: 1
+  - identity: 2
+    emotion1: 1
+    emotion2: 2
+    emotion3: 0
+    correctDialogue:
+      lines:
+      - speaker: Suspect
+        content: "I don\u2019t know, doctor. What stages do you think I am experiencing
+          now?"
+      - speaker: Suspect
+        content: "Since you mention it I do have remembered the drink\u2026and the
+          grossness I felt in the morning "
+      - speaker: Suspect
+        content: "I smell blood, from\u2026all of my room."
+      - speaker: Suspect
+        content: "Closet? Yes\u2026some of them from the closet."
+      - speaker: Suspect
+        content: "I feel like I am totally out of control\u2026"
+      - speaker: Suspect
+        content: "I could have done anything\u2026"
+    wrongDialogue:
+      lines:
+      - speaker: Suspect
+        content: " I don\u2019t know what else you expect me to answer."
     fragmentsToGrant: []
     grantOnce: 1
