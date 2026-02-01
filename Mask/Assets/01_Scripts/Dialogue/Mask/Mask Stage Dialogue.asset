@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - identity: 1
-    emotion1: 0
+    emotion1: 3
     emotion2: 0
     emotion3: 0
     correctDialogue:
