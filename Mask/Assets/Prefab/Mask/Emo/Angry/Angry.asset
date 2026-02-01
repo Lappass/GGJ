@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Angry
   m_EditorClassIdentifier: 
   type: 0
-  emotionValue: 3
+  emotionValue: 4
   identityValue: 0
   icon: {fileID: -6096836543343295673, guid: ee4fcc01c78b6754c8e7979d6353d390, type: 3}
-  defaultPosition: 0
+  defaultPosition: 1
   description: 

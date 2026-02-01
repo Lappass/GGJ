@@ -19,6 +19,11 @@ public class MapMenu : MonoBehaviour
     [SerializeField] private string scene3Name = "Suspect";
     [SerializeField] private string scene3SpawnPoint = "SpawnPoint";
 
+    [Header("Player References")]
+    [SerializeField] private PlayerController2D playerController;
+    [SerializeField] private SpriteRenderer playerRenderer;
+    [SerializeField] private Collider2D playerCollider;
+
     private bool isMapOpen = false;
 
     private void Start()
@@ -72,10 +77,15 @@ public class MapMenu : MonoBehaviour
         // Set initial alpha to 0 (invisible but clickable)
         SetImageAlpha(shadowObj, 0f);
 
+        // Clear existing triggers to avoid duplicates if Start calls multiple times
         EventTrigger trigger = shadowObj.GetComponent<EventTrigger>();
         if (trigger == null)
         {
             trigger = shadowObj.AddComponent<EventTrigger>();
+        }
+        else
+        {
+            trigger.triggers.Clear();
         }
 
         // Click
@@ -96,7 +106,7 @@ public class MapMenu : MonoBehaviour
         EventTrigger.Entry exitEntry = new EventTrigger.Entry();
         exitEntry.eventID = EventTriggerType.PointerExit;
         exitEntry.callback.AddListener((data) => { 
-             SetImageAlpha(shadowObj, 0f);
+            SetImageAlpha(shadowObj, 0f);
         });
         trigger.triggers.Add(exitEntry);
     }
@@ -150,6 +160,28 @@ public class MapMenu : MonoBehaviour
                 mapPanel.SetActive(false);
                 isMapOpen = false;
             }
+
+            // --- Disable Player if going to Interrogation Room ---
+            if (sceneName == "Interrogation Room")
+            {
+                // Disable Visuals
+                if (playerRenderer != null) playerRenderer.enabled = false;
+
+                // Disable Collider
+                if (playerCollider != null) playerCollider.enabled = false;
+
+                // Disable Control
+                if (playerController != null) playerController.enabled = false;
+            }
+            else
+            {
+                // Re-enable in case we are coming from Interrogation Room
+                if (playerRenderer != null) playerRenderer.enabled = true;
+                if (playerCollider != null) playerCollider.enabled = true;
+                if (playerController != null) playerController.enabled = true;
+            }
+            // ----------------------------------------------------
+
             SceneManager.LoadScene(sceneName);
         }
         else

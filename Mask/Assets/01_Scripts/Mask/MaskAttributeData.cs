@@ -8,13 +8,15 @@ public enum AttributeType
 }
 
 // Define specific values for Emotions and Identities
+//a
 public enum EmotionType
 {
     None,
-    Happy,
-    Sad,
+    Confident,
+    Reasoning,
+    IMG,
     Angry,
-    Fearful,
+    Pitful,
     Understanding,
 }
 
