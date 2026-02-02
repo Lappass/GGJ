@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54de741f80596fa449c5b9fa031995b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playSfxOnReturn: 1
 --- !u!114 &269900555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +713,7 @@ GameObject:
   - component: {fileID: 288541410}
   - component: {fileID: 288541409}
   - component: {fileID: 288541411}
+  - component: {fileID: 288541412}
   m_Layer: 0
   m_Name: EssentialSystem
   m_TagString: Untagged
@@ -759,6 +761,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288541408}
   m_Enabled: 1
+--- !u!114 &288541412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288541408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d37453c5944c44aae3a0c890f1eb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredIdentity: 4
+  requiredEmotions: 
+  requireExactEmotions: 0
 --- !u!1 &301533593
 GameObject:
   m_ObjectHideFlags: 0
@@ -4237,6 +4254,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 069dc309924ebcb4bb713c28b263aedd, type: 3}
   - emotion: 6
     clip: {fileID: 8300000, guid: e708ca32de2b3c340a800fd56ae783f6, type: 3}
+  successClip: {fileID: 0}
 --- !u!1 &1468650247
 GameObject:
   m_ObjectHideFlags: 0
