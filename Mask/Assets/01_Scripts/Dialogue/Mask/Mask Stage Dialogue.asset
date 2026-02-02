@@ -96,11 +96,63 @@ MonoBehaviour:
     correctDialogue:
       lines:
       - speaker: Me
-        content: aaaaa
+        content: "Mr. Inmes, are you alright? I am your assigned therapist. \r\n"
       - speaker: Me
-        content: ssdbdsadsa
+        content: ' I have got your record from your previous psychiatrist. You have
+          mentioned that you are experiencing drinking issues and memory loss. Is
+          that getting worse lately? Did you drink that night?
+
+'
+      - speaker: Inmes
+        content: "I don\u2019t know\u2026 How is that relevant to my case?\r\n"
+      - speaker: Inmes
+        content: " A little bit? Maybe more than a little bit. I am telling the truth.
+          I really was asleep that night. \r\n"
       - speaker: Me
-        content: wsdsb
+        content: " I am not accusing you of anything, please. It is not my job to
+          analyse the case; I am here for you. But I can\u2019t help you if you are
+          not honest with me. \r\n"
+      - speaker: Inmes
+        content: " I am being honest all the time. I didn\u2019t feel good that night
+          after I drank too much. I know I shouldn\u2019t mix the pills with any
+          alcohol\u2026It\u2019s not like I am doing this too often! \r\n"
+      - speaker: Me
+        content: 'Does that mean you were experiencing stronger stimulation than
+          usual?  '
+      - speaker: Inmes
+        content: I guess so, so I cannot remember anything before that. The next
+          thing I know is they somehow found a blood stain on me and took me here,
+          even though they never found the weapon.
+      - speaker: Me
+        content: Oh, the weapon is under your closet. I am not sure about the blood
+          stain, though. Do you recall anything about this? It seems like we are
+          facing a new condition of yours.
+      - speaker: Inmes
+        content: "How is that possible\u2026The weapon is in my closet?! "
+      - speaker: Inmes
+        content: "Since you mention it, I do remember the drink\u2026and the grossness
+          I felt in the morning. "
+      - speaker: Me
+        content: "Ok, you are doing great\u2026"
+      - speaker: Inmes
+        content: " smell blood, from\u2026all of my room. Closet? Yes\u2026some of
+          them from the closet. I feel like I am totally out of control\u2026I could
+          have done anything\u2026\r\n"
+      - speaker: Inmes
+        content: "I cannot trust my memory anymore. Do you know how that feels? It
+          seems like everyone knows better about me, about what I could have done
+          last night, than me\u2026 "
+      - speaker: Inmes
+        content: "And the worst part is\u2026 I cannot distinguish if they are telling
+          the truth. What if everyone is lying to me, and what if everyone is right
+          about me?  "
+      - speaker: Inmes
+        content: "And the worst part is\u2026 I cannot distinguish if they are telling
+          the truth. What if everyone is lying to me, and what if everyone is right
+          about me?  "
+      - speaker: Inmes
+        content: 'I am sorry to hear that. I will mention your condition in your
+          court records.  '
     wrongDialogue:
       lines:
       - speaker: Me

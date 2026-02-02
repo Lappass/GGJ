@@ -24,12 +24,16 @@ public class MapMenu : MonoBehaviour
     [SerializeField] private SpriteRenderer playerRenderer;
     [SerializeField] private Collider2D playerCollider;
 
+    [Header("Teleport Settings")]
+    [Tooltip("Delay before teleporting to spawn point (to ensure scene is fully loaded)")]
+    [SerializeField] private float teleportDelay = 0.1f;
+
     [Header("Map SFX")]
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip mapOpenSfx;
     [SerializeField] private AudioClip mapCloseSfx;
 
-    // ÇÐ³¡¾°Ê±ÊÇ·ñÈ·±£²¥·Å¡°¹ØµØÍ¼¡±ÒôÐ§£¨°´ÄãÐèÇóÄ¬ÈÏ true£©
+    // ï¿½Ð³ï¿½ï¿½ï¿½Ê±ï¿½Ç·ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½ï¿½Øµï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ trueï¿½ï¿½
     [SerializeField] private bool playCloseSfxOnSceneSwitch = true;
 
     private bool isMapOpen = false;
@@ -55,6 +59,72 @@ public class MapMenu : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CheckEventSystem();
+        StartCoroutine(TeleportToSpawnPoint(scene));
+    }
+
+    private Transform FindRootParent(Transform startTransform)
+    {
+        // Find the root parent (EssentialSystem or DontDestroyOnLoad object)
+        Transform current = startTransform;
+        Transform root = current;
+        
+        while (current.parent != null)
+        {
+            current = current.parent;
+            root = current;
+        }
+        
+        return root;
+    }
+
+    private System.Collections.IEnumerator TeleportToSpawnPoint(Scene scene)
+    {
+        // Wait a bit to ensure scene objects are fully initialized
+        yield return new WaitForSeconds(teleportDelay);
+
+        // Find root object
+        Transform root = null;
+        if (playerController != null)
+        {
+            root = FindRootParent(playerController.transform);
+        }
+        else if (playerRenderer != null)
+        {
+            root = FindRootParent(playerRenderer.transform);
+        }
+
+        if (root == null)
+        {
+            Debug.LogWarning("MapMenu: Could not find root object to teleport. Player position unchanged.");
+            yield break;
+        }
+
+        string targetSpawnName = "SpawnPoint";
+
+        if (GameStateManager.Instance != null && !string.IsNullOrEmpty(GameStateManager.Instance.nextSpawnPointID))
+        {
+            targetSpawnName = GameStateManager.Instance.nextSpawnPointID;
+            GameStateManager.Instance.nextSpawnPointID = null;
+        }
+
+        // Try to find spawn point
+        GameObject spawnPoint = GameObject.Find(targetSpawnName);
+        if (spawnPoint == null && targetSpawnName != "SpawnPoint")
+        {
+            Debug.LogWarning($"Spawn point '{targetSpawnName}' not found in {scene.name}. Trying default 'SpawnPoint'.");
+            spawnPoint = GameObject.Find("SpawnPoint");
+        }
+
+        if (spawnPoint != null)
+        {
+            // Teleport the root object (EssentialSystem) to the spawn point
+            root.position = spawnPoint.transform.position;
+            Debug.Log($"Root object '{root.name}' teleported to spawn point: {targetSpawnName} at position {spawnPoint.transform.position}");
+        }
+        else
+        {
+            Debug.LogError($"No spawn point found in scene '{scene.name}'. Root position unchanged.");
+        }
     }
     
     private void CheckEventSystem()
@@ -220,7 +290,21 @@ public class MapMenu : MonoBehaviour
             }
             // ----------------------------------------------------
 
-            SceneManager.LoadScene(sceneName);
+            // Use SceneTransition for smooth fade effect
+            if (SceneTransition.Instance != null)
+            {
+                SceneTransition.Instance.TransitionToScene(sceneName, spawnPointName);
+            }
+            else
+            {
+                // Fallback: direct load if transition system not available
+                Debug.LogWarning("SceneTransition.Instance is null, loading scene directly.");
+                if (GameStateManager.Instance != null)
+                {
+                    GameStateManager.Instance.nextSpawnPointID = spawnPointName;
+                }
+                SceneManager.LoadScene(sceneName);
+            }
         }
         else
         {

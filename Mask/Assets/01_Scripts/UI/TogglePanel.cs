@@ -57,6 +57,11 @@ public class TogglePanel : MonoBehaviour
             if (targetPanel.activeSelf)
             {
                 CleanupDraggables(targetPanel.transform);
+                // Also clear any tooltip that might be showing
+                if (MaskAttributeDisplay.Instance != null)
+                {
+                    MaskAttributeDisplay.Instance.ClearAttributes();
+                }
             }
             targetPanel.SetActive(!targetPanel.activeSelf);
         }

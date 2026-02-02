@@ -31,7 +31,9 @@ public class PickableItem : MonoBehaviour
 
     private void Start()
     {
-        if (GameStateManager.Instance != null)
+        // Only check state and destroy if destroyOnPickup is enabled
+        // This way items that shouldn't disappear won't be destroyed when re-entering the room
+        if (destroyOnPickup && GameStateManager.Instance != null)
         {
             bool isPicked = GameStateManager.Instance.GetState(objectID);
             if (isPicked)
@@ -117,7 +119,9 @@ public class PickableItem : MonoBehaviour
              }
         }
 
-        if (GameStateManager.Instance != null)
+        // Only save state if destroyOnPickup is enabled
+        // This prevents items that shouldn't disappear from being destroyed when re-entering the room
+        if (destroyOnPickup && GameStateManager.Instance != null)
         {
             GameStateManager.Instance.SetState(objectID, true);
         }
