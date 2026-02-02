@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Settings")]
     public GameObject realPrefabToSpawn; // The actual DraggableUI prefab
@@ -10,6 +10,10 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
     private GameObject currentDragObject;
     private DraggableUI currentDraggable;
     private Canvas rootCanvas;
+
+    [Header("Tooltip Settings")]
+    [SerializeField] private float hoverDelay = 0.5f;
+    private Coroutine _hoverCoroutine;
 
     private void Awake()
     {
@@ -30,6 +34,8 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
         if (img != null && icon != null) 
         {
             img.sprite = icon;
+            img.raycastTarget = true; // Ensure we can catch mouse events
+            
             // Ensure alpha is 1 in case prefab default is low
             Color c = img.color;
             c.a = 1f;
@@ -38,15 +44,18 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         // Ensure CanvasGroup is visible
         CanvasGroup cg = GetComponent<CanvasGroup>();
-        if (cg != null)
-        {
-            cg.alpha = 1f;
-            cg.blocksRaycasts = true;
-        }
+        if (cg == null) cg = gameObject.AddComponent<CanvasGroup>();
+        
+        cg.alpha = 1f;
+        cg.blocksRaycasts = true;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // Cancel tooltip if dragging starts
+        StopHover();
+        if (MaskAttributeDisplay.Instance != null) MaskAttributeDisplay.Instance.ClearAttributes();
+
         if (realPrefabToSpawn == null) return;
 
         // Hide the icon while dragging
@@ -148,6 +157,48 @@ public class InventoryItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler,
         // Show icon again
         CanvasGroup cg = GetComponent<CanvasGroup>();
         if (cg != null) cg.alpha = 1f;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // Don't show tooltip if we are dragging something
+        if (currentDragObject != null) return;
+
+        StopHover();
+        _hoverCoroutine = StartCoroutine(WaitAndShowTooltip());
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        StopHover();
+        if (MaskAttributeDisplay.Instance != null)
+        {
+            MaskAttributeDisplay.Instance.ClearAttributes();
+        }
+    }
+
+    private void StopHover()
+    {
+        if (_hoverCoroutine != null)
+        {
+            StopCoroutine(_hoverCoroutine);
+            _hoverCoroutine = null;
+        }
+    }
+
+    private System.Collections.IEnumerator WaitAndShowTooltip()
+    {
+        yield return new WaitForSeconds(hoverDelay);
+
+        if (MaskAttributeDisplay.Instance != null && realPrefabToSpawn != null)
+        {
+            var draggable = realPrefabToSpawn.GetComponent<DraggableUI>();
+            if (draggable != null && draggable.attributeData != null)
+            {
+                MaskAttributeDisplay.Instance.ShowAttributes(draggable.attributeData.GetDisplayText());
+            }
+        }
+        _hoverCoroutine = null;
     }
 }
 

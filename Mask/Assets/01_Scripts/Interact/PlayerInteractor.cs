@@ -12,20 +12,39 @@ public class PlayerInteractor : MonoBehaviour
     [Header("Prompt UI")]
     [SerializeField] private GameObject promptRoot;
 
-    [Header("¶Ô»°Ê±½ûÓÃ½»»¥!!")]
+    [Header("ï¿½Ô»ï¿½Ê±ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½!!")]
     [SerializeField] private DialogueManager dialogueManager;
 
     private readonly List<Interactable> _inRange = new List<Interactable>();
     private Interactable _current;
+    private bool _canInteract = true;
 
     private void Awake()
     {
         if (promptRoot != null) promptRoot.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        DialogueManager.OnGlobalDialogueStart += OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd += OnDialogueEnd;
+    }
+
+    private void OnDisable()
+    {
+        DialogueManager.OnGlobalDialogueStart -= OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd -= OnDialogueEnd;
+    }
+
+    private void OnDialogueStart() => _canInteract = false;
+    private void OnDialogueEnd() => _canInteract = true;
+
     private void Update()
     {
-        if (dialogueManager != null && dialogueManager.IsPlaying)
+        // Check both the manual reference and the event flag
+        bool dialoguePlaying = !_canInteract || (dialogueManager != null && dialogueManager.IsPlaying);
+
+        if (dialoguePlaying)
         {
             if (promptRoot != null) promptRoot.SetActive(false);
             return;

@@ -11,6 +11,8 @@ public class TogglePanel : MonoBehaviour
     [Tooltip("Should the panel be visible when the game starts?")]
     [SerializeField] private bool startActive = false;
 
+    private bool _canToggle = true;
+
     private void Start()
     {
         if (targetPanel == null)
@@ -23,8 +25,25 @@ public class TogglePanel : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        DialogueManager.OnGlobalDialogueStart += OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd += OnDialogueEnd;
+    }
+
+    private void OnDisable()
+    {
+        DialogueManager.OnGlobalDialogueStart -= OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd -= OnDialogueEnd;
+    }
+
+    private void OnDialogueStart() => _canToggle = false;
+    private void OnDialogueEnd() => _canToggle = true;
+
     private void Update()
     {
+        if (!_canToggle) return;
+
         if (Input.GetKeyDown(toggleKey))
         {
             Toggle();

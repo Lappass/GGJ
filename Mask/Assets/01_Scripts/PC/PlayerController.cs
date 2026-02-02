@@ -29,6 +29,8 @@ public class PlayerController2D : MonoBehaviour
     private Vector2 standSize;
     private Vector2 standOffset;
 
+    private bool _canControl = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,8 +48,34 @@ public class PlayerController2D : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
     }
 
+    private void OnEnable()
+    {
+        DialogueManager.OnGlobalDialogueStart += OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd += OnDialogueEnd;
+    }
+
+    private void OnDisable()
+    {
+        DialogueManager.OnGlobalDialogueStart -= OnDialogueStart;
+        DialogueManager.OnGlobalDialogueEnd -= OnDialogueEnd;
+    }
+
+    private void OnDialogueStart()
+    {
+        _canControl = false;
+        input = Vector2.zero;
+        if (anim != null) anim.SetFloat("Speed", 0f);
+    }
+
+    private void OnDialogueEnd()
+    {
+        _canControl = true;
+    }
+
     private void Update()
     {
+        if (!_canControl) return;
+
         //WASD
         float x = 0f;
         float y = 0f;
