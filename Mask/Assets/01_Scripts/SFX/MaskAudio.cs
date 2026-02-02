@@ -28,6 +28,7 @@ public class MaskAudio : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("[MaskAudio] Awake");
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -55,6 +56,8 @@ public class MaskAudio : MonoBehaviour
     /// </summary>
     public void PlayOnAttach(bool isAssembleSocket, MaskAttributeData data)
     {
+        Debug.Log($"[MaskAudio] PlayOnAttach called. assemble={isAssembleSocket}, data={(data == null ? "NULL" : data.type.ToString())}");
+
         if (sfxSource == null) return;
 
         // 1) Backpack attach => random returnClips
@@ -142,5 +145,10 @@ public class MaskAudio : MonoBehaviour
                 }
             }
         }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            Debug.Log("[MaskAudio] Update running (P pressed)");
     }
 }
