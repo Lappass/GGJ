@@ -3,37 +3,35 @@ using UnityEngine.EventSystems;
 
 public class InventoryDropZone : MonoBehaviour, IDropHandler
 {
+    [Header("Audio")]
+    [Tooltip("Play random putback SFX when a mask is returned to backpack successfully.")]
+    [SerializeField] private bool playSfxOnReturn = true;
+
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag != null)
-        {
-            DraggableUI draggable = eventData.pointerDrag.GetComponent<DraggableUI>();
-            if (draggable != null && draggable.originalPrefab != null)
-            {
-                // Restore to inventory
-                if (PlayerMaskInventoryController.Instance != null)
-                {
-                    PlayerMaskInventoryController.Instance.UnlockFragment(draggable.originalPrefab);
-                }
+        if (eventData.pointerDrag == null) return;
 
-                // If it was in a slot, clear the slot (though DraggableUI logic should handle parent checks)
-                // But DraggableUI.OnEndDrag might try to return to parent if we don't handle it carefully.
-                // However, since we are destroying it immediately, OnEndDrag on DraggableUI will run on a destroyed object or be interrupted?
-                // Actually OnEndDrag runs after OnDrop.
-                // If we destroy it here, OnEndDrag might throw errors or not run.
-                
-                // Safe way: Destroy it.
-                Destroy(draggable.gameObject);
-                
-                // If the draggable was dragged from a slot, the slot reference is in parentBeforeDrag.
-                // But DraggableUI.OnBeginDrag sets parent to root canvas.
-                // The slot (if any) called Clear() in OnBeginDrag so it's already empty.
-                // So destroying it here is safe.
-            }
+        DraggableUI draggable = eventData.pointerDrag.GetComponent<DraggableUI>();
+        if (draggable == null) return;
+
+        // 只有“确实是可回收的碎片”（有 originalPrefab）才算放回成功
+        if (draggable.originalPrefab == null) return;
+
+        if (playSfxOnReturn && MaskAudio.Instance != null)
+        {
+            MaskAudio.Instance.PlayOnAttach(false, null);
+            Debug.Log("[Mask SFX] Returned to backpack -> PlayReturnRandom()");
         }
+
+        if (PlayerMaskInventoryController.Instance != null)
+        {
+            PlayerMaskInventoryController.Instance.UnlockFragment(draggable.originalPrefab);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerMaskInventoryController.Instance is null!");
+        }
+
+        Destroy(draggable.gameObject);
     }
 }
-
-
-
-
