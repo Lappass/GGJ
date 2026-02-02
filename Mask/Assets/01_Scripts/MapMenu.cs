@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 public class MapMenu : MonoBehaviour
 {
@@ -25,14 +24,15 @@ public class MapMenu : MonoBehaviour
     [SerializeField] private SpriteRenderer playerRenderer;
     [SerializeField] private Collider2D playerCollider;
 
-    [Header("Teleport Settings")]
-    [Tooltip("The root object to teleport (e.g., EssentialSystem). If null, will auto-find from player.")]
-    [SerializeField] private Transform rootToTeleport;
-    [Tooltip("Delay before teleporting to spawn point (to ensure scene is fully loaded)")]
-    [SerializeField] private float teleportDelay = 0.1f;
+    [Header("Map SFX")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip mapOpenSfx;
+    [SerializeField] private AudioClip mapCloseSfx;
+
+    // 切场景时是否确保播放“关地图”音效（按你需求默认 true）
+    [SerializeField] private bool playCloseSfxOnSceneSwitch = true;
 
     private bool isMapOpen = false;
-    private bool _canToggle = true;
 
     private void Start()
     {
@@ -44,23 +44,9 @@ public class MapMenu : MonoBehaviour
         SetupMapLocation(scene2ShadowObj, scene2Name, scene2SpawnPoint);
         SetupMapLocation(scene3ShadowObj, scene3Name, scene3SpawnPoint);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (sfxSource == null) sfxSource = GetComponent<AudioSource>();
     }
     
-    private void OnEnable()
-    {
-        DialogueManager.OnGlobalDialogueStart += OnDialogueStart;
-        DialogueManager.OnGlobalDialogueEnd += OnDialogueEnd;
-    }
-
-    private void OnDisable()
-    {
-        DialogueManager.OnGlobalDialogueStart -= OnDialogueStart;
-        DialogueManager.OnGlobalDialogueEnd -= OnDialogueEnd;
-    }
-
-    private void OnDialogueStart() => _canToggle = false;
-    private void OnDialogueEnd() => _canToggle = true;
-
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -69,72 +55,6 @@ public class MapMenu : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CheckEventSystem();
-        StartCoroutine(TeleportToSpawnPoint(scene));
-    }
-
-    private Transform FindRootParent(Transform startTransform)
-    {
-        // Find the root parent (EssentialSystem or DontDestroyOnLoad object)
-        Transform current = startTransform;
-        Transform root = current;
-        
-        while (current.parent != null)
-        {
-            current = current.parent;
-            root = current;
-        }
-        
-        return root;
-    }
-
-    private IEnumerator TeleportToSpawnPoint(Scene scene)
-    {
-        // Wait a bit to ensure scene objects are fully initialized
-        yield return new WaitForSeconds(teleportDelay);
-
-        // Find root object if not assigned
-        Transform root = rootToTeleport;
-        if (root == null && playerController != null)
-        {
-            root = FindRootParent(playerController.transform);
-        }
-        else if (root == null && playerRenderer != null)
-        {
-            root = FindRootParent(playerRenderer.transform);
-        }
-
-        if (root == null)
-        {
-            Debug.LogWarning("MapMenu: Could not find root object to teleport. Player position unchanged.");
-            yield break;
-        }
-
-        string targetSpawnName = "SpawnPoint";
-
-        if (GameStateManager.Instance != null && !string.IsNullOrEmpty(GameStateManager.Instance.nextSpawnPointID))
-        {
-            targetSpawnName = GameStateManager.Instance.nextSpawnPointID;
-            GameStateManager.Instance.nextSpawnPointID = null;
-        }
-
-        // Try to find spawn point
-        GameObject spawnPoint = GameObject.Find(targetSpawnName);
-        if (spawnPoint == null && targetSpawnName != "SpawnPoint")
-        {
-            Debug.LogWarning($"Spawn point '{targetSpawnName}' not found in {scene.name}. Trying default 'SpawnPoint'.");
-            spawnPoint = GameObject.Find("SpawnPoint");
-        }
-
-        if (spawnPoint != null)
-        {
-            // Teleport the root object (EssentialSystem) to the spawn point
-            root.position = spawnPoint.transform.position;
-            Debug.Log($"Root object '{root.name}' teleported to spawn point: {targetSpawnName} at position {spawnPoint.transform.position}");
-        }
-        else
-        {
-            Debug.LogError($"No spawn point found in scene '{scene.name}'. Root position unchanged.");
-        }
     }
     
     private void CheckEventSystem()
@@ -150,8 +70,6 @@ public class MapMenu : MonoBehaviour
 
     private void Update()
     {
-        if (!_canToggle) return;
-
         if (Input.GetKeyDown(KeyCode.M))
         {
             ToggleMap();
@@ -219,6 +137,15 @@ public class MapMenu : MonoBehaviour
         if (mapPanel != null)
         {
             mapPanel.SetActive(isMapOpen);
+
+            if (sfxSource != null)
+            {
+                if (isMapOpen && mapOpenSfx != null)
+                    sfxSource.PlayOneShot(mapOpenSfx);
+                else if (!isMapOpen && mapCloseSfx != null)
+                    sfxSource.PlayOneShot(mapCloseSfx);
+            }
+
             if (isMapOpen)
             {
                 // Reset all shadows to invisible when map is opened
@@ -228,7 +155,22 @@ public class MapMenu : MonoBehaviour
             }
         }
     }
+    private void PlaySfxPersistAcrossSceneLoad(AudioClip clip)
+    {
+        if (clip == null) return;
 
+        GameObject go = new GameObject("Temp_MapSFX");
+        DontDestroyOnLoad(go);
+
+        var src = go.AddComponent<AudioSource>();
+        src.spatialBlend = 0f;      // 2D
+        src.playOnAwake = false;
+        src.loop = false;
+        src.clip = clip;
+        src.Play();
+
+        Destroy(go, clip.length + 0.1f);
+    }
     private void LoadScene(string sceneName, string spawnPointName)
     {
         string currentScene = SceneManager.GetActiveScene().name;
@@ -240,9 +182,19 @@ public class MapMenu : MonoBehaviour
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.Log($"Loading scene: {sceneName} at {spawnPointName}");
+            
+            if (GameStateManager.Instance != null)
+            {
+                GameStateManager.Instance.nextSpawnPointID = spawnPointName;
+            }
 
             if (mapPanel != null)
             {
+                if (playCloseSfxOnSceneSwitch && isMapOpen && mapCloseSfx != null)
+                {
+                    PlaySfxPersistAcrossSceneLoad(mapCloseSfx);
+                }
+
                 mapPanel.SetActive(false);
                 isMapOpen = false;
             }
@@ -268,21 +220,7 @@ public class MapMenu : MonoBehaviour
             }
             // ----------------------------------------------------
 
-            // Use SceneTransition for smooth fade effect
-            if (SceneTransition.Instance != null)
-            {
-                SceneTransition.Instance.TransitionToScene(sceneName, spawnPointName);
-            }
-            else
-            {
-                // Fallback: direct load if transition system not available
-                Debug.LogWarning("SceneTransition.Instance is null, loading scene directly.");
-                if (GameStateManager.Instance != null)
-                {
-                    GameStateManager.Instance.nextSpawnPointID = spawnPointName;
-                }
-                SceneManager.LoadScene(sceneName);
-            }
+            SceneManager.LoadScene(sceneName);
         }
         else
         {

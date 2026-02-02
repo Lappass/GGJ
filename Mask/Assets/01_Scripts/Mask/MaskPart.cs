@@ -10,7 +10,7 @@ public class MaskPart : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     [Header("Settings")]
     public bool returnToStartPosOnFail = true;
-
+    public MaskAttributeData attributeData;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Transform originalParent;

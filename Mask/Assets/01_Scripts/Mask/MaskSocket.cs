@@ -10,6 +10,9 @@ public class MaskSocket : MonoBehaviour, IDropHandler
     [Header("State")]
     public MaskPart currentPart;      // 当前吸附的碎片
 
+    [Header("SFX Only")]
+    public bool isAssembleSocket = true; // 背包socket设false，中间socket设true
+
     public bool IsOccupied => currentPart != null;
 
     private void Awake()
@@ -57,6 +60,8 @@ public class MaskSocket : MonoBehaviour, IDropHandler
 
         currentPart = part;
         part.OnAttached(this);
+        if (MaskAudio.Instance != null)
+            MaskAudio.Instance.PlayOnAttach(isAssembleSocket, part.attributeData);
     }
 
     public void DetachCurrent()
