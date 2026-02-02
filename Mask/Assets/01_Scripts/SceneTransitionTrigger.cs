@@ -25,13 +25,24 @@ public class SceneTransitionTrigger : MonoBehaviour
 
         if (Application.CanStreamedLevelBeLoaded(targetSceneName))
         {
-            if (GameStateManager.Instance != null)
-            {
-                GameStateManager.Instance.nextSpawnPointID = targetSpawnPointName;
-            }
-
             Debug.Log($"Switching to scene '{targetSceneName}' at spawn point '{targetSpawnPointName}'");
-            SceneManager.LoadScene(targetSceneName);
+            
+            // Use SceneTransition for smooth fade effect
+            // The teleport logic will be handled by MapMenu's OnSceneLoaded
+            if (SceneTransition.Instance != null)
+            {
+                SceneTransition.Instance.TransitionToScene(targetSceneName, targetSpawnPointName);
+            }
+            else
+            {
+                // Fallback: direct load if transition system not available
+                Debug.LogWarning("SceneTransition.Instance is null, loading scene directly.");
+                if (GameStateManager.Instance != null)
+                {
+                    GameStateManager.Instance.nextSpawnPointID = targetSpawnPointName;
+                }
+                SceneManager.LoadScene(targetSceneName);
+            }
         }
         else
         {

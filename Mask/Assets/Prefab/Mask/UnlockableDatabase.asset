@@ -20,7 +20,7 @@ MonoBehaviour:
     identityType: 1
     emotionType: 0
   - id: Dirty_Cop
-    displayName: Detective
+    displayName: Dirty_Cop
     icon: {fileID: 3473480026902683945, guid: 9e0084bce2658044caa43dab33b7838a, type: 3}
     type: 1
     identityType: 3

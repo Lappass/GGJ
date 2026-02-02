@@ -488,9 +488,21 @@ MonoBehaviour:
   dialogueSequence:
     lines:
     - speaker: Me
-      content: aaaaa
+      content: "According to the Mr. Inmes\u2019 psychiatrist records, he does have
+        drinking issues, especially after extreme trauma or stimulation."
     - speaker: Me
-      content: bbbbb
+      content: "He also mentioned that he \u201Ctried to escape the real dilemma
+        by drinking\u201D. He definitely has a pattern on that."
+    - speaker: Me
+      content: If he was traumatized by the killing scene, or panicked after the
+        killing, he might not even be able to tell if he was in his own home and
+        started drinking already!
+    - speaker: Me
+      content: And let alcohol comfort his problem in some ways.
+    - speaker: 
+      content: (You made a confident argument about the psychological condition and
+        pattern of Mr. Inmes, since now you are a professional therapist with solid
+        material.)
   enableGlowHint: 0
   glowVisual: {fileID: 0}
   activeVisual: {fileID: 860737348}
@@ -3001,7 +3013,7 @@ Transform:
   m_GameObject: {fileID: 1329267052}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.73999023, y: -2.8599854, z: 0}
+  m_LocalPosition: {x: 15.38, y: -6.94, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3284,7 +3296,19 @@ MonoBehaviour:
   dialogueSequence:
     lines:
     - speaker: Me
-      content: The dead man seems too heavy for the suspect to fight against
+      content: "Ah\u2026 I didn\u2019t expect to see this much, but is this dashed
+        line frame larger than usual?\r\n"
+    - speaker: Me
+      content: "Does the victim\u2026a seemingly larger guy than the average?\r\n"
+    - speaker: Me
+      content: It is definitely difficult for anyone to handle a big guy like this.
+    - speaker: Me
+      content: "Especially considering the skinny size of Mr. Inmes\u2026\r\n"
+    - speaker: 
+      content: '(You put yourself in the shoes of Mr. Inmes and find it hard to believe
+        that he could done this easily)
+
+'
   enableGlowHint: 0
   glowVisual: {fileID: 0}
   activeVisual: {fileID: 513630631}
@@ -4510,7 +4534,21 @@ MonoBehaviour:
   dialogueSequence:
     lines:
     - speaker: Me
-      content: The window has been opened
+      content: 'The window has been opened. But in such a freezing winter?
+
+'
+    - speaker: Me
+      content: "It\u2019s not like the view is worth watching in this neighborhood\u2026
+        wait\u2026\r\n"
+    - speaker: Me
+      content: 'Could that be done by the same person? The units are arranged closely
+        in old neighborhoods like this. '
+    - speaker: Me
+      content: Maybe someone has traveled between the two apartments across the window,
+        for what? Is that how the blood stain on Mr.Inmes came from?
+    - speaker: 
+      content: (You tried to think like a journalist and discover an intriguing but
+        unexpected explanation. You might want to confront Mr.Inmes again)
   enableGlowHint: 1
   glowVisual: {fileID: 0}
   activeVisual: {fileID: 1207001480}
@@ -4602,10 +4640,42 @@ Transform:
   - {fileID: 1665345659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2092333980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092333981}
+  m_Layer: 3
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2092333981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092333980}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 22.29, y: -8.14, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2092333981}
   - {fileID: 1329267060}
   - {fileID: 1756185761}
   - {fileID: 561128601}

@@ -28,6 +28,10 @@ public class DialogueManager : MonoBehaviour
     public UnityEvent onDialogueStarted;
     public UnityEvent onDialogueFinished;
 
+    // Static events for code-based subscribers
+    public static event System.Action OnGlobalDialogueStart;
+    public static event System.Action OnGlobalDialogueEnd;
+
     private System.Action _onCompleteCallback;
 
     public bool IsPlaying => _active;
@@ -144,6 +148,7 @@ public class DialogueManager : MonoBehaviour
         SetRootVisible(true);
 
         onDialogueStarted?.Invoke();
+        OnGlobalDialogueStart?.Invoke();
         ShowNextLine();
     }
 
@@ -157,6 +162,7 @@ public class DialogueManager : MonoBehaviour
 
         HideAllImmediate();
         onDialogueFinished?.Invoke();
+        OnGlobalDialogueEnd?.Invoke();
         _onCompleteCallback?.Invoke();
         _onCompleteCallback = null;
     }

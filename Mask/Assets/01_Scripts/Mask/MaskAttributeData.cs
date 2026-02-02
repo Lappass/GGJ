@@ -14,7 +14,7 @@ public enum EmotionType
     None,
     Confident,
     Reasoning,
-    IMG,
+    Imaginative,
     Angry,
     Pitful,
     Understanding,
@@ -41,7 +41,7 @@ public class MaskAttributeData : ScriptableObject
 
     [Header("Visuals")]
     public Sprite icon;
-    public MaskPosition defaultPosition; // Where does this fragment usually go?
+    public MaskPosition defaultPosition; 
 
     [TextArea]
     public string description;
