@@ -62,6 +62,7 @@ public class MaskPart : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             // 吸附成功
             bestSocket.AttachPart(this);
+
         }
         else
         {
@@ -82,6 +83,9 @@ public class MaskPart : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         currentSocket = socket;
         transform.SetParent(socket.transform);
         transform.localPosition = Vector3.zero; // 归位到 Socket 中心
+
+        if (MaskAudio.Instance != null)
+            MaskAudio.Instance.PlayOnAttach(socket.isAssembleSocket, attributeData);
     }
 
     public void OnDetached()
