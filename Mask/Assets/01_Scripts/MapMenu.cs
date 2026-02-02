@@ -24,6 +24,14 @@ public class MapMenu : MonoBehaviour
     [SerializeField] private SpriteRenderer playerRenderer;
     [SerializeField] private Collider2D playerCollider;
 
+    [Header("Map SFX")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip mapOpenSfx;
+    [SerializeField] private AudioClip mapCloseSfx;
+
+    // 切场景时是否确保播放“关地图”音效（按你需求默认 true）
+    [SerializeField] private bool playCloseSfxOnSceneSwitch = true;
+
     private bool isMapOpen = false;
 
     private void Start()
@@ -36,6 +44,7 @@ public class MapMenu : MonoBehaviour
         SetupMapLocation(scene2ShadowObj, scene2Name, scene2SpawnPoint);
         SetupMapLocation(scene3ShadowObj, scene3Name, scene3SpawnPoint);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (sfxSource == null) sfxSource = GetComponent<AudioSource>();
     }
     
     private void OnDestroy()
@@ -128,6 +137,15 @@ public class MapMenu : MonoBehaviour
         if (mapPanel != null)
         {
             mapPanel.SetActive(isMapOpen);
+
+            if (sfxSource != null)
+            {
+                if (isMapOpen && mapOpenSfx != null)
+                    sfxSource.PlayOneShot(mapOpenSfx);
+                else if (!isMapOpen && mapCloseSfx != null)
+                    sfxSource.PlayOneShot(mapCloseSfx);
+            }
+
             if (isMapOpen)
             {
                 // Reset all shadows to invisible when map is opened
@@ -137,7 +155,22 @@ public class MapMenu : MonoBehaviour
             }
         }
     }
+    private void PlaySfxPersistAcrossSceneLoad(AudioClip clip)
+    {
+        if (clip == null) return;
 
+        GameObject go = new GameObject("Temp_MapSFX");
+        DontDestroyOnLoad(go);
+
+        var src = go.AddComponent<AudioSource>();
+        src.spatialBlend = 0f;      // 2D
+        src.playOnAwake = false;
+        src.loop = false;
+        src.clip = clip;
+        src.Play();
+
+        Destroy(go, clip.length + 0.1f);
+    }
     private void LoadScene(string sceneName, string spawnPointName)
     {
         string currentScene = SceneManager.GetActiveScene().name;
@@ -157,6 +190,11 @@ public class MapMenu : MonoBehaviour
 
             if (mapPanel != null)
             {
+                if (playCloseSfxOnSceneSwitch && isMapOpen && mapCloseSfx != null)
+                {
+                    PlaySfxPersistAcrossSceneLoad(mapCloseSfx);
+                }
+
                 mapPanel.SetActive(false);
                 isMapOpen = false;
             }

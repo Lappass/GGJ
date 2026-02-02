@@ -15,10 +15,14 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private int mouseButton = 0;           // 0 = Left Mouse
 
     [Header("Behavior")]
-    [Tooltip("ÿ����ֺ󣬶�������Զ���ʾС����")]
     [SerializeField] private float autoShowIndicatorAfterSeconds = 5f;
-    [Tooltip("�Ƿ�ʹ�� Unscaled Time����ͣ/������ʱ��������ʱ��")]
     [SerializeField] private bool useUnscaledTime = true;
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource uiSfxSource;
+    [SerializeField] private AudioClip advanceSfx;
+    [SerializeField] private bool playOnOpen = false;
+    [SerializeField] private bool playOnAdvance = true;
 
     [Header("Events (Optional)")]
     public UnityEvent onDialogueStarted;
@@ -39,14 +43,29 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        if (uiSfxSource == null) uiSfxSource = GetComponent<AudioSource>();
         HideAllImmediate();
+
+    }
+    private void PlayAdvanceSfx()
+    {
+        if (uiSfxSource != null && advanceSfx != null)
+            uiSfxSource.PlayOneShot(advanceSfx);
+    }
+
+    private void AdvanceDialogue()
+    {
+        if (playOnAdvance) PlayAdvanceSfx();
     }
 
     private void Update()
     {
         if (!_active) return;
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            AdvanceDialogue();
+        }
 
-        // ��ʱ������ 5 ����Զ���ʾ����
         if (_state == LineState.WaitingToRevealIndicator)
         {
             float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
@@ -56,21 +75,18 @@ public class DialogueManager : MonoBehaviour
                 RevealIndicator();
         }
 
-        // ���룺�����ո�
         if (Input.GetMouseButtonDown(mouseButton) || Input.GetKeyDown(advanceKey))
             HandleAdvanceInput();
     }
 
     private void HandleAdvanceInput()
     {
-        // ǰ 5 ���ڣ���һ�ε��ֻ�������ǣ����ƽ�
         if (_state == LineState.WaitingToRevealIndicator)
         {
             RevealIndicator();
             return;
         }
 
-        // ���ǳ��ֺ󣺵���ƽ���һ��
         if (_state == LineState.ReadyToAdvance)
             ShowNextLine();
     }
@@ -103,13 +119,11 @@ public class DialogueManager : MonoBehaviour
         if (speakerText != null) speakerText.text = line.speaker;
         if (contentText != null) contentText.text = line.content;
 
-        // ��һ����֣��������ǣ����¼�ʱ���ص����ȴ��������ǡ�״̬
         if (continueIndicator != null) continueIndicator.SetActive(false);
         _timer = 0f;
         _state = LineState.WaitingToRevealIndicator;
     }
 
-    // ֻ������� Play������֧�֡�����/�������������Ŀ���
     public void Play(DialogueSequence sequence, System.Action onComplete = null)
     {
         Debug.Log($"[DialogueManager] Play requested. Sequence: {sequence}");
@@ -119,6 +133,7 @@ public class DialogueManager : MonoBehaviour
             onComplete?.Invoke();
             return;
         }
+        if (playOnOpen) PlayAdvanceSfx();
 
         _onCompleteCallback = onComplete;
         _sequence = sequence;
