@@ -16,11 +16,22 @@ public class MaskAudio : MonoBehaviour
     [Header("Emotion Clips (Used when Emotion placed to Assemble socket)")]
     [SerializeField] private List<EmotionClip> emotionClips = new List<EmotionClip>();
 
+
+    [Header("Success Clip (Stage requirement met)")]
+    [SerializeField] private AudioClip successClip;
+
     [Serializable]
     public class EmotionClip
     {
         public EmotionType emotion;
         public AudioClip clip;
+    }
+
+    public void PlaySuccess()
+    {
+        if (sfxSource == null) return;
+        if (successClip == null) return;
+        sfxSource.PlayOneShot(successClip);
     }
 
     private int _lastReturnIdx = -1;
