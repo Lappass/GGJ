@@ -59,6 +59,9 @@ public class PlayerSceneTeleporter : MonoBehaviour
 
     private IEnumerator TeleportToSpawnPoint(Scene scene)
     {
+        // Disable player control to prevent movement during the teleport delay
+        if (playerController != null) playerController.enabled = false;
+
         // Wait a bit to ensure scene objects are fully initialized
         yield return new WaitForSeconds(teleportDelay);
 
@@ -88,6 +91,13 @@ public class PlayerSceneTeleporter : MonoBehaviour
         {
             // Teleport the root object (EssentialSystem) to the spawn point
             rootToTeleport.position = spawnPoint.transform.position;
+            
+            // Reset player local position to (0,0,0) relative to parent
+            if (playerController != null)
+            {
+                playerController.transform.localPosition = Vector3.zero;
+            }
+
             Debug.Log($"Root object '{rootToTeleport.name}' teleported to spawn point: {targetSpawnName} at position {spawnPoint.transform.position}");
         }
         else
@@ -101,5 +111,8 @@ public class PlayerSceneTeleporter : MonoBehaviour
                 Debug.LogError($"Root object to teleport is null. Cannot teleport player.");
             }
         }
+
+        // Re-enable player control
+        if (playerController != null) playerController.enabled = true;
     }
 }

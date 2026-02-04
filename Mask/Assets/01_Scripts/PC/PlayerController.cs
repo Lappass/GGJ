@@ -58,6 +58,10 @@ public class PlayerController2D : MonoBehaviour
     {
         DialogueManager.OnGlobalDialogueStart -= OnDialogueStart;
         DialogueManager.OnGlobalDialogueEnd -= OnDialogueEnd;
+        // Ensure no residual movement when disabled
+        input = Vector2.zero;
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        if (anim != null) anim.SetFloat("Speed", 0f);
     }
 
     private void OnDialogueStart()

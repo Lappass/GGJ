@@ -79,6 +79,9 @@ public class MapMenu : MonoBehaviour
 
     private System.Collections.IEnumerator TeleportToSpawnPoint(Scene scene)
     {
+        // Disable player control to prevent movement during the teleport delay
+        if (playerController != null) playerController.enabled = false;
+
         // Wait a bit to ensure scene objects are fully initialized
         yield return new WaitForSeconds(teleportDelay);
 
@@ -96,6 +99,8 @@ public class MapMenu : MonoBehaviour
         if (root == null)
         {
             Debug.LogWarning("MapMenu: Could not find root object to teleport. Player position unchanged.");
+            // Re-enable player control before exiting
+            if (playerController != null) playerController.enabled = true;
             yield break;
         }
 
@@ -119,12 +124,26 @@ public class MapMenu : MonoBehaviour
         {
             // Teleport the root object (EssentialSystem) to the spawn point
             root.position = spawnPoint.transform.position;
+            
+            // Reset player local position to (0,0,0) relative to parent
+            if (playerController != null)
+            {
+                playerController.transform.localPosition = Vector3.zero;
+            }
+            else if (playerRenderer != null)
+            {
+                playerRenderer.transform.localPosition = Vector3.zero;
+            }
+
             Debug.Log($"Root object '{root.name}' teleported to spawn point: {targetSpawnName} at position {spawnPoint.transform.position}");
         }
         else
         {
             Debug.LogError($"No spawn point found in scene '{scene.name}'. Root position unchanged.");
         }
+
+        // Re-enable player control
+        if (playerController != null) playerController.enabled = true;
     }
     
     private void CheckEventSystem()
@@ -207,6 +226,12 @@ public class MapMenu : MonoBehaviour
         if (mapPanel != null)
         {
             mapPanel.SetActive(isMapOpen);
+
+            // Toggle player control
+            if (playerController != null)
+            {
+                playerController.enabled = !isMapOpen;
+            }
 
             if (sfxSource != null)
             {
